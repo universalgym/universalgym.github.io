@@ -588,8 +588,13 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261116011801';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
-document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('load',function(){setTimeout(chk,1500)})})();</script>
+<script>var BUILD='20261116012319';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
+/* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
+var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
+try{var n0=Date.now();last=n0;de.style.visibility='hidden';setTimeout(show,1500);
+fetch('version.json?t='+n0,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.b&&j.b!=BUILD&&sessionStorage.getItem('gym_try')!=j.b){sessionStorage.setItem('gym_try',j.b);location.replace(location.pathname+'?v='+j.b);return}show()}).catch(show)}catch(e){show()}
+})();</script>
 <script>/* ===== Снег (праздничное оформление) ===== */
 (function(){
 var SNOW={on:false,from:'',to:''};   // снег выключен. on:true — идёт всегда; или задать даты from/to (ММ-ДД), например '12-20' и '01-14'
