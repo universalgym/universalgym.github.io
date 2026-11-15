@@ -585,7 +585,97 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261115015654';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261115083047';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('load',function(){setTimeout(chk,1500)})})();</script>
+<script>/* ===== Пробный период и активация (Universal Gym) ===== */
+(function(){
+var LIC_CFG={
+  trialMs: 3*60*1000,          // длительность пробного периода
+  price: '',                   // цена и способ оплаты — пусто: строка не показывается
+  ig: '',                      // имя Instagram без @ — пусто: кнопка не показывается
+  list: '/klyuchi/list/UG/'    // список активированных ключей в репозитории Klyuchi
+};
+var LK='ug_lic', A='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+var T={
+ ru:['Пробный период закончился','Чтобы продолжить пользоваться приложением, отправьте этот ключ и оплату:','Скопировать ключ','Ключ скопирован','Ожидаем активацию. Приложение откроется само, как только ключ активируют.','Готово! Приложение активировано','Доступ по этому ключу заблокирован.','Написать в Instagram'],
+ en:['Your free trial has ended','To keep using the app, send this key together with your payment:','Copy key','Key copied','Waiting for activation. The app will unlock by itself once the key is activated.','Done! The app is activated','Access for this key has been blocked.','Message on Instagram'],
+ es:['Tu período de prueba ha terminado','Para seguir usando la app, envía esta clave junto con el pago:','Copiar clave','Clave copiada','Esperando la activación. La app se desbloqueará sola cuando se active la clave.','¡Listo! La app está activada','El acceso con esta clave ha sido bloqueado.','Escribir por Instagram'],
+ de:['Deine Testphase ist abgelaufen','Um die App weiter zu nutzen, sende diesen Schlüssel zusammen mit der Zahlung:','Schlüssel kopieren','Schlüssel kopiert','Warte auf Aktivierung. Die App wird automatisch freigeschaltet, sobald der Schlüssel aktiviert ist.','Fertig! Die App ist aktiviert','Der Zugang mit diesem Schlüssel wurde gesperrt.','Auf Instagram schreiben'],
+ fr:['Votre période d’essai est terminée','Pour continuer à utiliser l’app, envoyez cette clé avec votre paiement :','Copier la clé','Clé copiée','En attente d’activation. L’app se débloquera d’elle-même dès que la clé sera activée.','C’est fait ! L’app est activée','L’accès avec cette clé a été bloqué.','Écrire sur Instagram'],
+ pt:['Seu período de teste terminou','Para continuar usando o app, envie esta chave junto com o pagamento:','Copiar chave','Chave copiada','Aguardando ativação. O app será desbloqueado sozinho assim que a chave for ativada.','Pronto! O app está ativado','O acesso com esta chave foi bloqueado.','Escrever no Instagram'],
+ it:['Il periodo di prova è terminato','Per continuare a usare l’app, invia questa chiave insieme al pagamento:','Copia chiave','Chiave copiata','In attesa di attivazione. L’app si sbloccherà da sola appena la chiave sarà attivata.','Fatto! L’app è attivata','L’accesso con questa chiave è stato bloccato.','Scrivi su Instagram'],
+ uk:['Пробний період закінчився','Щоб продовжити користуватися застосунком, надішліть цей ключ і оплату:','Скопіювати ключ','Ключ скопійовано','Очікуємо активацію. Застосунок відкриється сам, щойно ключ активують.','Готово! Застосунок активовано','Доступ за цим ключем заблоковано.','Написати в Instagram'],
+ tr:['Deneme süreniz sona erdi','Uygulamayı kullanmaya devam etmek için bu anahtarı ödemeyle birlikte gönderin:','Anahtarı kopyala','Anahtar kopyalandı','Etkinleştirme bekleniyor. Anahtar etkinleştirilince uygulama kendiliğinden açılacak.','Tamam! Uygulama etkinleştirildi','Bu anahtarla erişim engellendi.','Instagram’dan yaz'],
+ zh:['试用期已结束','要继续使用本应用，请将此密钥连同付款一起发送：','复制密钥','密钥已复制','正在等待激活。密钥激活后，应用会自动解锁。','完成！应用已激活','此密钥的访问已被封禁。','在 Instagram 上留言'],
+ ja:['お試し期間が終了しました','引き続きアプリを使うには、このキーとお支払いを送ってください：','キーをコピー','キーをコピーしました','有効化を待っています。キーが有効になると、アプリは自動で開きます。','完了！アプリが有効になりました','このキーでのアクセスはブロックされました。','Instagram でメッセージ'],
+ ko:['무료 체험 기간이 끝났습니다','앱을 계속 사용하려면 이 키와 결제 내역을 보내 주세요:','키 복사','키가 복사되었습니다','활성화를 기다리는 중입니다. 키가 활성화되면 앱이 자동으로 열립니다.','완료! 앱이 활성화되었습니다','이 키의 접근이 차단되었습니다.','Instagram으로 메시지'],
+ ar:['انتهت الفترة التجريبية','لمواصلة استخدام التطبيق، أرسل هذا المفتاح مع الدفع:','نسخ المفتاح','تم نسخ المفتاح','بانتظار التفعيل. سيُفتح التطبيق تلقائيًا بمجرد تفعيل المفتاح.','تم! التطبيق مفعّل','تم حظر الوصول بهذا المفتاح.','راسلنا على Instagram'],
+ hi:['आपका ट्रायल समाप्त हो गया है','ऐप का उपयोग जारी रखने के लिए यह कुंजी भुगतान के साथ भेजें:','कुंजी कॉपी करें','कुंजी कॉपी हो गई','सक्रियण की प्रतीक्षा है। कुंजी सक्रिय होते ही ऐप अपने-आप खुल जाएगा।','हो गया! ऐप सक्रिय है','इस कुंजी से पहुँच अवरुद्ध कर दी गई है।','Instagram पर संदेश भेजें']
+};
+function lang(){var c=null;try{c=localStorage.getItem('trenirovki_lang')}catch(e){}if(!c)c=(navigator.language||'en').slice(0,2).toLowerCase();return T[c]?c:'en'}
+function t(i){return T[lang()][i]}
+function load(){try{return JSON.parse(localStorage.getItem(LK)||'null')}catch(e){return null}}
+function save(){try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}}
+function newKey(){var r=new Uint8Array(11);crypto.getRandomValues(r);var b='';for(var i=0;i<11;i++)b+=A[r[i]&31];var s=0;for(i=0;i<11;i++)s+=A.indexOf(b[i])*(i+1);b+=A[s%32];return 'UG-'+b.slice(0,4)+'-'+b.slice(4,8)+'-'+b.slice(8)}
+var L=load();
+if(!L||!L.k){L={k:newKey(),t0:Date.now(),ok:false};save()}
+
+function hash(){var body=L.k.replace(/^UG-/,'').replace(/-/g,'');
+  return crypto.subtle.digest('SHA-256',new TextEncoder().encode('UGK|UG|'+body)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')})}
+function lookup(){return hash().then(function(h){return fetch(LIC_CFG.list+h.slice(0,2)+'.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json()}).then(function(d){var id=h.slice(2,18);return (d.b||[]).indexOf(id)>=0?'b':(d.a||[]).indexOf(id)>=0?'a':''})})}
+
+var st=document.createElement('style');
+st.textContent="#lic{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px));background:rgba(8,10,14,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}#lic[hidden]{display:none}"+
+"#lic .lb{width:min(360px,100%);max-height:100%;overflow:auto;background:var(--card,#fff);color:var(--ink,#16191d);border-radius:20px;padding:18px 16px;box-shadow:0 20px 50px rgba(0,0,0,.45);text-align:center;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif}"+
+"#lic h3{margin:0 0 8px;font-size:18px}#lic p{margin:0 0 12px;font-size:14px;line-height:1.4;color:var(--mut,#6a7078)}"+
+"#lic .lk{font:700 21px/1.2 ui-monospace,Menlo,monospace;letter-spacing:1px;padding:12px 8px;border-radius:14px;background:var(--inp,#eef0ed);border:1px dashed var(--acc,#27557f);margin:0 0 10px;user-select:all;-webkit-user-select:all;word-break:break-all}"+
+"#lic .lp{font-size:15px;font-weight:600;margin:0 0 10px}"+
+"#lic button,#lic a.lbt{display:block;width:100%;border:0;border-radius:14px;padding:13px;font:700 16px/1.1 inherit;font-family:inherit;cursor:pointer;margin:0 0 8px;text-decoration:none;box-sizing:border-box}"+
+"#lic .b1{background:var(--acc,#27557f);color:var(--onacc,#fff)}#lic .b2{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af);color:#fff}"+
+"#lic .ls{font-size:13px;color:var(--mut,#6a7078);display:flex;gap:8px;align-items:center;justify-content:center;margin-top:4px}"+
+"#lic .sp{width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:licr 1s linear infinite;flex:none}@keyframes licr{to{transform:rotate(360deg)}}"+
+"#lic .ok{color:#2d7a4f;font-weight:700}#lic .bad{color:#c0392b;font-weight:600}";
+document.head.appendChild(st);
+var ov=document.createElement('div');ov.id='lic';ov.hidden=true;document.body.appendChild(ov);
+['touchstart','pointerdown','click','keydown'].forEach(function(ev){ov.addEventListener(ev,function(e){e.stopPropagation()},false)});
+
+function draw(state){
+  var h='<div class="lb"><h3>'+(state==='done'?t(5):t(0))+'</h3>';
+  if(state!=='done'){
+    h+='<p>'+(state==='blocked'?t(6):t(1))+'</p><div class="lk">'+L.k+'</div>';
+    if(LIC_CFG.price)h+='<div class="lp">'+LIC_CFG.price+'</div>';
+    h+='<button type="button" class="b1" id="licCp">'+t(2)+'</button>';
+    if(LIC_CFG.ig)h+='<a class="lbt b2" href="https://ig.me/m/'+LIC_CFG.ig+'" target="_blank" rel="noopener">'+t(7)+'</a>';
+    if(state!=='blocked')h+='<div class="ls"><span class="sp"></span><span>'+t(4)+'</span></div>';
+  } else h+='<div class="ls ok">✓</div>';
+  ov.innerHTML=h+'</div>';ov.hidden=false;
+  var cp=document.getElementById('licCp');
+  if(cp)cp.onclick=function(){var done=function(){cp.textContent=t(3);setTimeout(function(){cp.textContent=t(2)},1800)};
+    try{navigator.clipboard.writeText(L.k).then(done,function(){fb();done()})}catch(e){fb();done()}};
+  function fb(){var a=document.createElement('textarea');a.value=L.k;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+}
+
+var timer=null,lastBlk=0,tw=null;
+function expired(){return Date.now()-L.t0>=LIC_CFG.trialMs}
+function poll(){
+  lookup().then(function(s){
+    if(s==='a'){L.ok=true;L.blk=false;save();stop();draw('done');setTimeout(function(){ov.hidden=true},1600)}
+    else if(s==='b'){L.ok=false;L.blk=true;save();stop();draw('blocked')}
+  }).catch(function(){});
+}
+function start(){if(!timer){poll();timer=setInterval(poll,30000)}}
+function stop(){if(timer){clearInterval(timer);timer=null}}
+function check(){
+  if(L.ok){
+    if(Date.now()-lastBlk>6*3600*1000){lastBlk=Date.now();lookup().then(function(s){if(s==='b'){L.ok=false;L.blk=true;save();draw('blocked')}}).catch(function(){})}
+    return;
+  }
+  if(L.blk){draw('blocked');return}
+  if(expired()){if(!timer)draw('wait');if(timer)poll();else start()}
+  else if(!tw){tw=setTimeout(function(){tw=null;check()},Math.min(LIC_CFG.trialMs-(Date.now()-L.t0)+500,2147483000))}
+}
+document.addEventListener('visibilitychange',function(){if(!document.hidden)check()});
+check();
+})();</script>
 </body>
 </html>
