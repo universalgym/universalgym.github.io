@@ -585,33 +585,34 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261115084947';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261115085535';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('load',function(){setTimeout(chk,1500)})})();</script>
 <script>/* ===== Пробный период и активация (Universal Gym) ===== */
 (function(){
 var LIC_CFG={
   trialMs: 3*24*60*60*1000,    // длительность пробного периода: 3 дня
-  price: '',                   // цена и способ оплаты — пусто: строка не показывается
+  price: '1 499 ₽',            // цена за год — пусто: строка не показывается
+  yearMs: 365*24*60*60*1000,   // срок доступа после активации
   ig: '',                      // имя Instagram без @ — пусто: кнопка не показывается
   list: '/klyuchi/list/UG/',   // список активированных ключей в репозитории Klyuchi
   api: 'https://api.github.com/repos/chamsutdinov-bot/klyuchi/contents/list/UG/'
 };
 var LK='ug_lic2', A='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 var T={
- ru:['Пробный период закончился','Чтобы продолжить пользоваться приложением, отправьте этот ключ и оплату:','Скопировать ключ','Ключ скопирован','Ожидаем активацию. Приложение откроется само, как только ключ активируют.','Готово! Приложение активировано','Доступ по этому ключу заблокирован.','Написать в Instagram'],
- en:['Your free trial has ended','To keep using the app, send this key together with your payment:','Copy key','Key copied','Waiting for activation. The app will unlock by itself once the key is activated.','Done! The app is activated','Access for this key has been blocked.','Message on Instagram'],
- es:['Tu período de prueba ha terminado','Para seguir usando la app, envía esta clave junto con el pago:','Copiar clave','Clave copiada','Esperando la activación. La app se desbloqueará sola cuando se active la clave.','¡Listo! La app está activada','El acceso con esta clave ha sido bloqueado.','Escribir por Instagram'],
- de:['Deine Testphase ist abgelaufen','Um die App weiter zu nutzen, sende diesen Schlüssel zusammen mit der Zahlung:','Schlüssel kopieren','Schlüssel kopiert','Warte auf Aktivierung. Die App wird automatisch freigeschaltet, sobald der Schlüssel aktiviert ist.','Fertig! Die App ist aktiviert','Der Zugang mit diesem Schlüssel wurde gesperrt.','Auf Instagram schreiben'],
- fr:['Votre période d’essai est terminée','Pour continuer à utiliser l’app, envoyez cette clé avec votre paiement :','Copier la clé','Clé copiée','En attente d’activation. L’app se débloquera d’elle-même dès que la clé sera activée.','C’est fait ! L’app est activée','L’accès avec cette clé a été bloqué.','Écrire sur Instagram'],
- pt:['Seu período de teste terminou','Para continuar usando o app, envie esta chave junto com o pagamento:','Copiar chave','Chave copiada','Aguardando ativação. O app será desbloqueado sozinho assim que a chave for ativada.','Pronto! O app está ativado','O acesso com esta chave foi bloqueado.','Escrever no Instagram'],
- it:['Il periodo di prova è terminato','Per continuare a usare l’app, invia questa chiave insieme al pagamento:','Copia chiave','Chiave copiata','In attesa di attivazione. L’app si sbloccherà da sola appena la chiave sarà attivata.','Fatto! L’app è attivata','L’accesso con questa chiave è stato bloccato.','Scrivi su Instagram'],
- uk:['Пробний період закінчився','Щоб продовжити користуватися застосунком, надішліть цей ключ і оплату:','Скопіювати ключ','Ключ скопійовано','Очікуємо активацію. Застосунок відкриється сам, щойно ключ активують.','Готово! Застосунок активовано','Доступ за цим ключем заблоковано.','Написати в Instagram'],
- tr:['Deneme süreniz sona erdi','Uygulamayı kullanmaya devam etmek için bu anahtarı ödemeyle birlikte gönderin:','Anahtarı kopyala','Anahtar kopyalandı','Etkinleştirme bekleniyor. Anahtar etkinleştirilince uygulama kendiliğinden açılacak.','Tamam! Uygulama etkinleştirildi','Bu anahtarla erişim engellendi.','Instagram’dan yaz'],
- zh:['试用期已结束','要继续使用本应用，请将此密钥连同付款一起发送：','复制密钥','密钥已复制','正在等待激活。密钥激活后，应用会自动解锁。','完成！应用已激活','此密钥的访问已被封禁。','在 Instagram 上留言'],
- ja:['お試し期間が終了しました','引き続きアプリを使うには、このキーとお支払いを送ってください：','キーをコピー','キーをコピーしました','有効化を待っています。キーが有効になると、アプリは自動で開きます。','完了！アプリが有効になりました','このキーでのアクセスはブロックされました。','Instagram でメッセージ'],
- ko:['무료 체험 기간이 끝났습니다','앱을 계속 사용하려면 이 키와 결제 내역을 보내 주세요:','키 복사','키가 복사되었습니다','활성화를 기다리는 중입니다. 키가 활성화되면 앱이 자동으로 열립니다.','완료! 앱이 활성화되었습니다','이 키의 접근이 차단되었습니다.','Instagram으로 메시지'],
- ar:['انتهت الفترة التجريبية','لمواصلة استخدام التطبيق، أرسل هذا المفتاح مع الدفع:','نسخ المفتاح','تم نسخ المفتاح','بانتظار التفعيل. سيُفتح التطبيق تلقائيًا بمجرد تفعيل المفتاح.','تم! التطبيق مفعّل','تم حظر الوصول بهذا المفتاح.','راسلنا على Instagram'],
- hi:['आपका ट्रायल समाप्त हो गया है','ऐप का उपयोग जारी रखने के लिए यह कुंजी भुगतान के साथ भेजें:','कुंजी कॉपी करें','कुंजी कॉपी हो गई','सक्रियण की प्रतीक्षा है। कुंजी सक्रिय होते ही ऐप अपने-आप खुल जाएगा।','हो गया! ऐप सक्रिय है','इस कुंजी से पहुँच अवरुद्ध कर दी गई है।','Instagram पर संदेश भेजें']
+ ru:['Пробный период закончился','Чтобы продолжить пользоваться приложением, отправьте этот ключ и оплату:','Скопировать ключ','Ключ скопирован','Ожидаем активацию. Приложение откроется само, как только ключ активируют.','Готово! Приложение активировано','Доступ по этому ключу заблокирован.','Написать в Instagram','Срок подписки закончился','Доступ на 1 год:'],
+ en:['Your free trial has ended','To keep using the app, send this key together with your payment:','Copy key','Key copied','Waiting for activation. The app will unlock by itself once the key is activated.','Done! The app is activated','Access for this key has been blocked.','Message on Instagram','Your subscription has ended','Access for 1 year:'],
+ es:['Tu período de prueba ha terminado','Para seguir usando la app, envía esta clave junto con el pago:','Copiar clave','Clave copiada','Esperando la activación. La app se desbloqueará sola cuando se active la clave.','¡Listo! La app está activada','El acceso con esta clave ha sido bloqueado.','Escribir por Instagram','Tu suscripción ha terminado','Acceso por 1 año:'],
+ de:['Deine Testphase ist abgelaufen','Um die App weiter zu nutzen, sende diesen Schlüssel zusammen mit der Zahlung:','Schlüssel kopieren','Schlüssel kopiert','Warte auf Aktivierung. Die App wird automatisch freigeschaltet, sobald der Schlüssel aktiviert ist.','Fertig! Die App ist aktiviert','Der Zugang mit diesem Schlüssel wurde gesperrt.','Auf Instagram schreiben','Dein Abo ist abgelaufen','Zugang für 1 Jahr:'],
+ fr:['Votre période d’essai est terminée','Pour continuer à utiliser l’app, envoyez cette clé avec votre paiement :','Copier la clé','Clé copiée','En attente d’activation. L’app se débloquera d’elle-même dès que la clé sera activée.','C’est fait ! L’app est activée','L’accès avec cette clé a été bloqué.','Écrire sur Instagram','Votre abonnement est terminé','Accès pour 1 an :'],
+ pt:['Seu período de teste terminou','Para continuar usando o app, envie esta chave junto com o pagamento:','Copiar chave','Chave copiada','Aguardando ativação. O app será desbloqueado sozinho assim que a chave for ativada.','Pronto! O app está ativado','O acesso com esta chave foi bloqueado.','Escrever no Instagram','Sua assinatura terminou','Acesso por 1 ano:'],
+ it:['Il periodo di prova è terminato','Per continuare a usare l’app, invia questa chiave insieme al pagamento:','Copia chiave','Chiave copiata','In attesa di attivazione. L’app si sbloccherà da sola appena la chiave sarà attivata.','Fatto! L’app è attivata','L’accesso con questa chiave è stato bloccato.','Scrivi su Instagram','Il tuo abbonamento è scaduto','Accesso per 1 anno:'],
+ uk:['Пробний період закінчився','Щоб продовжити користуватися застосунком, надішліть цей ключ і оплату:','Скопіювати ключ','Ключ скопійовано','Очікуємо активацію. Застосунок відкриється сам, щойно ключ активують.','Готово! Застосунок активовано','Доступ за цим ключем заблоковано.','Написати в Instagram','Термін підписки закінчився','Доступ на 1 рік:'],
+ tr:['Deneme süreniz sona erdi','Uygulamayı kullanmaya devam etmek için bu anahtarı ödemeyle birlikte gönderin:','Anahtarı kopyala','Anahtar kopyalandı','Etkinleştirme bekleniyor. Anahtar etkinleştirilince uygulama kendiliğinden açılacak.','Tamam! Uygulama etkinleştirildi','Bu anahtarla erişim engellendi.','Instagram’dan yaz','Aboneliğiniz sona erdi','1 yıllık erişim:'],
+ zh:['试用期已结束','要继续使用本应用，请将此密钥连同付款一起发送：','复制密钥','密钥已复制','正在等待激活。密钥激活后，应用会自动解锁。','完成！应用已激活','此密钥的访问已被封禁。','在 Instagram 上留言','您的订阅已到期','1 年访问权限：'],
+ ja:['お試し期間が終了しました','引き続きアプリを使うには、このキーとお支払いを送ってください：','キーをコピー','キーをコピーしました','有効化を待っています。キーが有効になると、アプリは自動で開きます。','完了！アプリが有効になりました','このキーでのアクセスはブロックされました。','Instagram でメッセージ','サブスクリプションの期限が切れました','1年間のアクセス：'],
+ ko:['무료 체험 기간이 끝났습니다','앱을 계속 사용하려면 이 키와 결제 내역을 보내 주세요:','키 복사','키가 복사되었습니다','활성화를 기다리는 중입니다. 키가 활성화되면 앱이 자동으로 열립니다.','완료! 앱이 활성화되었습니다','이 키의 접근이 차단되었습니다.','Instagram으로 메시지','구독 기간이 끝났습니다','1년 이용권:'],
+ ar:['انتهت الفترة التجريبية','لمواصلة استخدام التطبيق، أرسل هذا المفتاح مع الدفع:','نسخ المفتاح','تم نسخ المفتاح','بانتظار التفعيل. سيُفتح التطبيق تلقائيًا بمجرد تفعيل المفتاح.','تم! التطبيق مفعّل','تم حظر الوصول بهذا المفتاح.','راسلنا على Instagram','انتهى اشتراكك','الوصول لمدة سنة:'],
+ hi:['आपका ट्रायल समाप्त हो गया है','ऐप का उपयोग जारी रखने के लिए यह कुंजी भुगतान के साथ भेजें:','कुंजी कॉपी करें','कुंजी कॉपी हो गई','सक्रियण की प्रतीक्षा है। कुंजी सक्रिय होते ही ऐप अपने-आप खुल जाएगा।','हो गया! ऐप सक्रिय है','इस कुंजी से पहुँच अवरुद्ध कर दी गई है।','Instagram पर संदेश भेजें','आपकी सदस्यता समाप्त हो गई है','1 वर्ष की पहुँच:']
 };
 function lang(){var c=null;try{c=localStorage.getItem('trenirovki_lang')}catch(e){}if(!c)c=(navigator.language||'en').slice(0,2).toLowerCase();return T[c]?c:'en'}
 function t(i){return T[lang()][i]}
@@ -626,8 +627,8 @@ function hash(){var body=L.k.replace(/^UG-/,'').replace(/-/g,'');
 function viaApi(sh){return fetch(LIC_CFG.api+sh+'.json',{cache:'no-cache'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json().then(function(j){return JSON.parse(atob(j.content.replace(/\n/g,'')))})})}
 function viaPages(sh){return fetch(LIC_CFG.list+sh+'.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json()})}
 function lookup(){return hash().then(function(h){var sh=h.slice(0,2),id=h.slice(2,18);
-  function res(d){return (d.b||[]).indexOf(id)>=0?'b':(d.a||[]).indexOf(id)>=0?'a':''}
-  return viaApi(sh).then(res,function(){return viaPages(sh).then(res)}).then(function(s){if(s)return s;return viaPages(sh).then(res,function(){return ''})})})}
+  function res(d){if((d.b||[]).indexOf(id)>=0)return {s:'b'};var a=d.a||{};if(Array.isArray(a))return a.indexOf(id)>=0?{s:'a',u:Date.now()+LIC_CFG.yearMs}:{s:''};return a[id]?{s:'a',u:+a[id]}:{s:''}}
+  return viaApi(sh).then(res,function(){return viaPages(sh).then(res)}).then(function(r){if(r.s==='b'||(r.s==='a'&&r.u>Date.now()))return r;return viaPages(sh).then(function(d){var q=res(d);return (q.s==='b'||(q.s==='a'&&q.u>Date.now()))?q:r},function(){return r})})})}
 
 var st=document.createElement('style');
 st.textContent="#lic{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px));background:rgba(8,10,14,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}#lic[hidden]{display:none}"+
@@ -645,10 +646,10 @@ var ov=document.createElement('div');ov.id='lic';ov.hidden=true;document.body.ap
 ['touchstart','pointerdown','click','keydown'].forEach(function(ev){ov.addEventListener(ev,function(e){e.stopPropagation()},false)});
 
 function draw(state){
-  var h='<div class="lb"><h3>'+(state==='done'?t(5):t(0))+'</h3>';
+  var h='<div class="lb"><h3>'+(state==='done'?t(5):state==='renew'?t(8):t(0))+'</h3>';
   if(state!=='done'){
     h+='<p>'+(state==='blocked'?t(6):t(1))+'</p><div class="lk">'+L.k+'</div>';
-    if(LIC_CFG.price)h+='<div class="lp">'+LIC_CFG.price+'</div>';
+    if(LIC_CFG.price&&state!=='blocked')h+='<div class="lp">'+t(9)+' '+LIC_CFG.price+'</div>';
     h+='<button type="button" class="b1" id="licCp">'+t(2)+'</button>';
     if(LIC_CFG.ig)h+='<a class="lbt b2" href="https://ig.me/m/'+LIC_CFG.ig+'" target="_blank" rel="noopener">'+t(7)+'</a>';
     if(state!=='blocked')h+='<div class="ls"><span class="sp"></span><span>'+t(4)+'</span></div>';
@@ -661,23 +662,30 @@ function draw(state){
 }
 
 var timer=null,lastBlk=0,tw=null;
-function expired(){return Date.now()-L.t0>=LIC_CFG.trialMs}
+function active(){return L.until?Date.now()<L.until:!!L.ok}
+function trialOver(){return Date.now()-L.t0>=LIC_CFG.trialMs}
+function wake(ms){if(tw)clearTimeout(tw);tw=setTimeout(function(){tw=null;check()},Math.max(500,Math.min(ms+500,2147483000)))}
 function poll(){
-  lookup().then(function(s){
-    if(s==='a'){L.ok=true;L.blk=false;save();stop();draw('done');setTimeout(function(){ov.hidden=true},1600)}
-    else if(s==='b'){L.ok=false;L.blk=true;save();stop();draw('blocked')}
+  lookup().then(function(r){
+    if(r.s==='b'){L.ok=false;L.blk=true;save();stop();draw('blocked')}
+    else if(r.s==='a'&&r.u>Date.now()){L.ok=true;L.blk=false;L.until=r.u;save();stop();draw('done');setTimeout(function(){ov.hidden=true},1600);wake(L.until-Date.now())}
   }).catch(function(){});
 }
-function start(){if(!timer){poll();timer=setInterval(poll,30000)}}
+function start(){if(!timer){poll();timer=setInterval(poll,30000)}else poll()}
 function stop(){if(timer){clearInterval(timer);timer=null}}
 function check(){
-  if(L.ok){
-    if(Date.now()-lastBlk>6*3600*1000){lastBlk=Date.now();lookup().then(function(s){if(s==='b'){L.ok=false;L.blk=true;save();draw('blocked')}}).catch(function(){})}
+  if(L.blk){draw('blocked');return}
+  if(active()){
+    if(!L.until||Date.now()-lastBlk>6*3600*1000){lastBlk=Date.now();lookup().then(function(r){
+      if(r.s==='b'){L.ok=false;L.blk=true;save();draw('blocked')}
+      else if(r.s==='a'){L.ok=true;L.until=r.u;save();if(r.u<=Date.now())check();else wake(r.u-Date.now())}
+    }).catch(function(){})}
+    if(L.until)wake(L.until-Date.now());
     return;
   }
-  if(L.blk){draw('blocked');return}
-  if(expired()){if(!timer)draw('wait');if(timer)poll();else start()}
-  else if(!tw){tw=setTimeout(function(){tw=null;check()},Math.min(LIC_CFG.trialMs-(Date.now()-L.t0)+500,2147483000))}
+  if(L.ok||L.until){if(!timer)draw('renew');start();return}
+  if(trialOver()){if(!timer)draw('wait');start()}
+  else wake(LIC_CFG.trialMs-(Date.now()-L.t0));
 }
 document.addEventListener('visibilitychange',function(){if(!document.hidden)check()});
 check();
