@@ -588,12 +588,12 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261116002907';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261116003205';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('load',function(){setTimeout(chk,1500)})})();</script>
 <script>/* ===== Снег (праздничное оформление) ===== */
 (function(){
-var SNOW={on:true,from:'12-20',to:'01-14'};   // on:true — снег идёт всегда; on:false — только с from по to (ММ-ДД)
-function want(){if(SNOW.on)return true;var d=new Date(),md=('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);return SNOW.from<=SNOW.to?(md>=SNOW.from&&md<=SNOW.to):(md>=SNOW.from||md<=SNOW.to)}
+var SNOW={on:false,from:'',to:''};   // снег выключен. on:true — идёт всегда; или задать даты from/to (ММ-ДД), например '12-20' и '01-14'
+function want(){if(SNOW.on)return true;if(!SNOW.from||!SNOW.to)return false;var d=new Date(),md=('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);return SNOW.from<=SNOW.to?(md>=SNOW.from&&md<=SNOW.to):(md>=SNOW.from||md<=SNOW.to)}
 if(!want())return;
 try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return}catch(e){}
 var c=document.createElement('canvas');c.id='snow';c.setAttribute('aria-hidden','true');
