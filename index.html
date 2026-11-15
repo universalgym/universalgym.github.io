@@ -588,8 +588,30 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261115214849';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261115235542';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('load',function(){setTimeout(chk,1500)})})();</script>
+<script>/* ===== Снег (праздничное оформление) ===== */
+(function(){
+var SNOW={on:true,from:'12-20',to:'01-14'};   // on:true — снег идёт всегда; on:false — только с from по to (ММ-ДД)
+function want(){if(SNOW.on)return true;var d=new Date(),md=('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);return SNOW.from<=SNOW.to?(md>=SNOW.from&&md<=SNOW.to):(md>=SNOW.from||md<=SNOW.to)}
+if(!want())return;
+try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return}catch(e){}
+var c=document.createElement('canvas');c.id='snow';c.setAttribute('aria-hidden','true');
+c.style.cssText='position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:9000';
+document.body.appendChild(c);
+var x=c.getContext('2d'),W=0,H=0,R=1,F=[],raf=0,last=0;
+function size(){R=Math.min(window.devicePixelRatio||1,2);W=innerWidth;H=innerHeight;c.width=W*R;c.height=H*R;x.setTransform(R,0,0,R,0,0);
+  var n=Math.min(160,Math.round(W*H/7000));while(F.length<n)F.push(mk(true));F.length=n}
+function mk(any){var r=Math.random()*2.6+1;return{x:Math.random()*W,y:any?Math.random()*H:-10,r:r,v:r*18+12,w:Math.random()*6.28,s:Math.random()*.8+.4,o:Math.random()*.5+.45}}
+function step(t){raf=requestAnimationFrame(step);var dt=Math.min(.05,(t-(last||t))/1000);last=t;x.clearRect(0,0,W,H);
+  for(var i=0;i<F.length;i++){var f=F[i];f.y+=f.v*dt;f.w+=f.s*dt;f.x+=Math.sin(f.w)*f.r*.35;
+    if(f.y>H+10||f.x<-10||f.x>W+10){F[i]=mk(false);continue}
+    x.beginPath();x.arc(f.x,f.y,f.r,0,6.283);x.fillStyle='rgba(255,255,255,'+f.o+')';x.shadowColor='rgba(120,140,170,.5)';x.shadowBlur=2;x.fill()}}
+function go(){if(!raf){last=0;raf=requestAnimationFrame(step)}}
+function halt(){if(raf){cancelAnimationFrame(raf);raf=0}}
+addEventListener('resize',size);document.addEventListener('visibilitychange',function(){document.hidden?halt():go()});
+size();go();
+})();</script>
 <style id="panc">
 #pan{padding:8px 10px!important}
 #pan>div:first-child{margin-bottom:2px!important}
