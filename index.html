@@ -585,7 +585,7 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261115083047';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261115084135';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('load',function(){setTimeout(chk,1500)})})();</script>
 <script>/* ===== Пробный период и активация (Universal Gym) ===== */
 (function(){
@@ -593,7 +593,8 @@ var LIC_CFG={
   trialMs: 3*60*1000,          // длительность пробного периода
   price: '',                   // цена и способ оплаты — пусто: строка не показывается
   ig: '',                      // имя Instagram без @ — пусто: кнопка не показывается
-  list: '/klyuchi/list/UG/'    // список активированных ключей в репозитории Klyuchi
+  list: '/klyuchi/list/UG/',   // список активированных ключей в репозитории Klyuchi
+  api: 'https://api.github.com/repos/chamsutdinov-bot/klyuchi/contents/list/UG/'
 };
 var LK='ug_lic', A='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 var T={
@@ -622,7 +623,11 @@ if(!L||!L.k){L={k:newKey(),t0:Date.now(),ok:false};save()}
 
 function hash(){var body=L.k.replace(/^UG-/,'').replace(/-/g,'');
   return crypto.subtle.digest('SHA-256',new TextEncoder().encode('UGK|UG|'+body)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')})}
-function lookup(){return hash().then(function(h){return fetch(LIC_CFG.list+h.slice(0,2)+'.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json()}).then(function(d){var id=h.slice(2,18);return (d.b||[]).indexOf(id)>=0?'b':(d.a||[]).indexOf(id)>=0?'a':''})})}
+function viaApi(sh){return fetch(LIC_CFG.api+sh+'.json',{cache:'no-cache'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json().then(function(j){return JSON.parse(atob(j.content.replace(/\n/g,'')))})})}
+function viaPages(sh){return fetch(LIC_CFG.list+sh+'.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json()})}
+function lookup(){return hash().then(function(h){var sh=h.slice(0,2),id=h.slice(2,18);
+  function res(d){return (d.b||[]).indexOf(id)>=0?'b':(d.a||[]).indexOf(id)>=0?'a':''}
+  return viaApi(sh).then(res,function(){return viaPages(sh).then(res)}).then(function(s){if(s)return s;return viaPages(sh).then(res,function(){return ''})})})}
 
 var st=document.createElement('style');
 st.textContent="#lic{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) 16px max(16px,env(safe-area-inset-bottom,0px));background:rgba(8,10,14,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}#lic[hidden]{display:none}"+
