@@ -588,7 +588,7 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261116005836';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261116010011';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('load',function(){setTimeout(chk,1500)})})();</script>
 <script>/* ===== Снег (праздничное оформление) ===== */
 (function(){
@@ -792,9 +792,7 @@ function poll(){
 }
 function start(){if(!timer){poll();timer=setInterval(poll,30000)}else poll()}
 function stop(){if(timer){clearInterval(timer);timer=null}}
-function histStart(){var m=Infinity;try{(S.h||[]).forEach(function(w){if(w&&w.ts&&w.ts<m)m=w.ts})}catch(e){}return m}
 function check(){
-  if(!L.ok&&!L.until){var hs=histStart();if(hs<L.t0){L.t0=hs;save()}}   /* пробный период считается от первой тренировки в журнале — загрузка старой копии его не обнулит */
   if(cur==='restore'&&timer)poll();
   if(L.blk){draw('blocked');return}
   if(active()){
@@ -812,7 +810,6 @@ function check(){
   else wake(LIC_CFG.trialMs-(Date.now()-L.t0));
 }
 document.addEventListener('visibilitychange',function(){if(!document.hidden)check()});
-var bkf=document.getElementById('bkf');if(bkf)bkf.addEventListener('change',function(){setTimeout(check,600)});
 check();
 })();</script>
 </body>
