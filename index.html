@@ -588,7 +588,7 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261116011404';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261116011801';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});window.addEventListener('load',function(){setTimeout(chk,1500)})})();</script>
 <script>/* ===== Снег (праздничное оформление) ===== */
 (function(){
@@ -730,6 +730,7 @@ st.textContent="#lic{position:fixed;inset:0;z-index:2147483000;display:flex;alig
 "#lic h3{margin:0 0 8px;font-size:18px}#lic p{margin:0 0 12px;font-size:14px;line-height:1.4;color:var(--mut,#6a7078)}"+
 "#lic .lk{font:700 21px/1.2 ui-monospace,Menlo,monospace;letter-spacing:1px;padding:12px 8px;border-radius:14px;background:var(--inp,#eef0ed);border:1px dashed var(--acc,#27557f);margin:0 0 10px;user-select:all;-webkit-user-select:all;word-break:break-all}"+
 "#lic .lp{font-size:15px;font-weight:600;margin:0 0 10px}"+
+"#lic .lpl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}#lic .lpl button{margin:0;padding:10px 6px;border-radius:14px;border:2px solid var(--line,#dfe2de)!important;background:var(--inp,#eef0ed);color:var(--ink,#16191d);display:flex;flex-direction:column;align-items:center;gap:4px;font:600 13px/1.2 inherit}#lic .lpl button b{font-size:17px}#lic .lpl button.on{border-color:var(--acc,#27557f)!important;background:color-mix(in srgb,var(--acc,#27557f) 14%,var(--inp,#eef0ed));box-shadow:0 0 0 1px var(--acc,#27557f)}"+
 "#lic button,#lic a.lbt{display:block;width:100%;border:0;border-radius:14px;padding:13px;font:700 16px/1.1 inherit;font-family:inherit;cursor:pointer;margin:0 0 8px;text-decoration:none;box-sizing:border-box}"+
 "#lic .b1{background:var(--acc,#27557f);color:var(--onacc,#fff)}#lic .b2{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af);color:#fff}"+
 "#lic .ls{font-size:13px;color:var(--mut,#6a7078);display:flex;gap:8px;align-items:center;justify-content:center;margin-top:4px}"+
@@ -751,8 +752,10 @@ function draw(state){
     h+='<p>'+(state==='restore'?t(14):(state==='wait'&&!LIC_CFG.trialMs)?t(21):t(1))+'</p>';
     if(state==='restore'&&L.until&&L.until>Date.now())h+='<p class="ok">'+t(18)+' '+new Date(L.until).toLocaleDateString()+'</p>';
     h+='<div class="lk">'+L.k+'</div>';
-    if(LIC_CFG.price&&state!=='restore')h+='<div class="lp">'+t(9)+' '+LIC_CFG.price+'</div>';
-    if(LIC_CFG.priceY&&state!=='restore')h+='<div class="lp">'+t(19)+' '+LIC_CFG.priceY+'</div>';
+    if(state!=='restore'){if(!L.pl)L.pl='h';h+='<div class="lpl">';
+      if(LIC_CFG.price)h+='<button type="button" data-pl="h" class="'+(L.pl==='h'?'on':'')+'"><span>'+t(9).replace(/[:：]\s*$/,'')+'</span><b>'+LIC_CFG.price+'</b></button>';
+      if(LIC_CFG.priceY)h+='<button type="button" data-pl="y" class="'+(L.pl==='y'?'on':'')+'"><span>'+t(19).replace(/[:：]\s*$/,'')+'</span><b>'+LIC_CFG.priceY+'</b></button>';
+      h+='</div>'}
     h+='<input type="tel" id="licPh" inputmode="tel" autocomplete="tel" placeholder="'+t(10)+'" value="'+(L.ph?'+'+L.ph:'')+'"><div class="er" id="licEr"></div>';
     h+='<button type="button" class="b1" id="licCp">'+t(11)+'</button>';
     if(LIC_CFG.ig)h+='<a class="lbt b2" href="https://ig.me/m/'+LIC_CFG.ig+'" target="_blank" rel="noopener">'+t(7)+'</a>';
@@ -762,12 +765,14 @@ function draw(state){
   ov.innerHTML=h+'</div>';ov.hidden=false;
   var cp=document.getElementById('licCp'),ph=document.getElementById('licPh'),er=document.getElementById('licEr'),x=document.getElementById('licX');
   if(x)x.onclick=function(){ov.hidden=true;cur=''};
+  [].forEach.call(ov.querySelectorAll('.lpl button'),function(b){b.onclick=function(){L.pl=b.getAttribute('data-pl');save();[].forEach.call(ov.querySelectorAll('.lpl button'),function(q){q.classList.toggle('on',q===b)})}});
   if(ph)ph.oninput=function(){er.textContent=''};
   if(cp)cp.onclick=function(){
     var d=(ph.value||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10&&d[0]==='9')d='7'+d;
     if(d.length<10||d.length>15){er.textContent=t(16);ph.focus();return}
     L.ph=d;save();
     var m='Universal Gym — '+ttl(state)+'\n📱 +'+d+'\n🔑 '+L.k;
+    if(state!=='restore')m+='\n📅 '+(L.pl==='y'?'12':'6')+' · '+(L.pl==='y'?t(19)+' '+LIC_CFG.priceY:t(9)+' '+LIC_CFG.price);
     var ok=function(){cp.textContent=t(12);setTimeout(function(){cp.textContent=t(11)},1800)};
     try{navigator.clipboard.writeText(m).then(ok,function(){fb(m);ok()})}catch(e){fb(m);ok()}
     if(state==='restore')start();
