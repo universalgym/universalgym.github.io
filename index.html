@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Universal Gym">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#16191d">
+<link rel="manifest" href="manifest.webmanifest">
 <title>Universal Gym</title>
 <link rel="apple-touch-icon" id="touch" href="">
 <style>
@@ -588,12 +589,35 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261116083700';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261116104611';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
 try{var n0=Date.now();last=n0;de.style.visibility='hidden';setTimeout(show,1500);
 fetch('version.json?t='+n0,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.b&&j.b!=BUILD&&sessionStorage.getItem('gym_try')!=j.b){sessionStorage.setItem('gym_try',j.b);location.replace(location.pathname+'?v='+j.b);return}show()}).catch(show)}catch(e){show()}
+})();</script>
+<script>/* ===== Подсказка «Установите приложение» ===== */
+(function(){
+var T={"ru": ["Установите приложение", "Нажмите «Поделиться» (квадрат со стрелкой, в новых iOS — через ⋯), затем «На экран „Домой“» и «Добавить».", "Установить", "Откройте эту страницу в Safari: нажмите ⋯ вверху и выберите «Открыть в браузере»."], "en": ["Install the app", "Tap Share (the square with an arrow; on newer iOS it is under ⋯), then “Add to Home Screen” and “Add”.", "Install", "Open this page in Safari: tap ⋯ at the top and choose “Open in browser”."], "es": ["Instala la app", "Toca Compartir (el cuadrado con flecha; en iOS reciente está en ⋯), luego «Añadir a pantalla de inicio» y «Añadir».", "Instalar", "Abre esta página en Safari: toca ⋯ arriba y elige «Abrir en el navegador»."], "de": ["App installieren", "Tippe auf Teilen (Quadrat mit Pfeil; in neuen iOS unter ⋯), dann „Zum Home-Bildschirm“ und „Hinzufügen“.", "Installieren", "Öffne diese Seite in Safari: tippe oben auf ⋯ und wähle „Im Browser öffnen“."], "fr": ["Installez l’app", "Touchez Partager (le carré avec une flèche ; sous ⋯ sur les iOS récents), puis « Sur l’écran d’accueil » et « Ajouter ».", "Installer", "Ouvrez cette page dans Safari : touchez ⋯ en haut et choisissez « Ouvrir dans le navigateur »."], "pt": ["Instale o app", "Toque em Compartilhar (o quadrado com seta; no iOS recente fica em ⋯), depois «Adicionar à Tela de Início» e «Adicionar».", "Instalar", "Abra esta página no Safari: toque em ⋯ no topo e escolha «Abrir no navegador»."], "it": ["Installa l’app", "Tocca Condividi (il quadrato con la freccia; negli iOS recenti è sotto ⋯), poi «Aggiungi alla schermata Home» e «Aggiungi».", "Installa", "Apri questa pagina in Safari: tocca ⋯ in alto e scegli «Apri nel browser»."], "uk": ["Встановіть застосунок", "Натисніть «Поділитися» (квадрат зі стрілкою, у нових iOS — через ⋯), потім «На початковий екран» і «Додати».", "Встановити", "Відкрийте цю сторінку в Safari: натисніть ⋯ угорі й оберіть «Відкрити в браузері»."], "tr": ["Uygulamayı yükleyin", "Paylaş’a dokunun (oklu kare; yeni iOS’ta ⋯ içinde), sonra «Ana Ekrana Ekle» ve «Ekle».", "Yükle", "Bu sayfayı Safari’de açın: üstteki ⋯ simgesine dokunup «Tarayıcıda aç»ı seçin."], "zh": ["安装应用", "点击“分享”（带箭头的方框；新版 iOS 在 ⋯ 里），然后选择“添加到主屏幕”并点“添加”。", "安装", "请在 Safari 中打开此页面：点击顶部的 ⋯，选择“在浏览器中打开”。"], "ja": ["アプリをインストール", "「共有」（矢印付きの四角。新しいiOSでは ⋯ の中）をタップし、「ホーム画面に追加」→「追加」。", "インストール", "このページをSafariで開いてください：上部の ⋯ をタップし「ブラウザで開く」を選択。"], "ko": ["앱 설치하기", "공유(화살표가 있는 사각형, 최신 iOS에서는 ⋯ 안)를 누른 뒤 “홈 화면에 추가” → “추가”.", "설치", "이 페이지를 Safari에서 여세요: 위쪽 ⋯을 누르고 “브라우저에서 열기”를 선택하세요."], "ar": ["ثبّت التطبيق", "اضغط «مشاركة» (المربع ذو السهم، وفي iOS الحديثة داخل ⋯)، ثم «إضافة إلى الشاشة الرئيسية» و«إضافة».", "تثبيت", "افتح هذه الصفحة في Safari: اضغط ⋯ في الأعلى واختر «فتح في المتصفح»."], "hi": ["ऐप इंस्टॉल करें", "“शेयर” (तीर वाला चौकोर; नए iOS में ⋯ के अंदर) दबाएँ, फिर “होम स्क्रीन पर जोड़ें” और “जोड़ें”।", "इंस्टॉल", "यह पेज Safari में खोलें: ऊपर ⋯ दबाएँ और “ब्राउज़र में खोलें” चुनें।"]};
+function lang(){var c=null;try{c=localStorage.getItem('trenirovki_lang')}catch(e){}if(!c)c=(navigator.language||'en').slice(0,2).toLowerCase();return T[c]?c:'en'}
+function t(i){return T[lang()][i]}
+try{if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(function(){})}catch(e){}
+var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+if(standalone)return;
+var KEY='ug_inst_hide';function hidden(){try{return Date.now()<+(localStorage.getItem(KEY)||0)}catch(e){return false}}
+var ua=navigator.userAgent||'',ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1),inapp=/Instagram|FBAN|FBAV|Telegram|Line\//i.test(ua);
+var st=document.createElement('style');st.textContent="#inst{position:fixed;left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));z-index:8000;display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:16px;background:var(--card,#fff);color:var(--ink,#16191d);border:1px solid var(--line,#dfe2de);box-shadow:0 10px 30px rgba(0,0,0,.28);font:13px/1.35 -apple-system,BlinkMacSystemFont,system-ui,sans-serif;max-width:560px;margin:0 auto}#inst img{width:40px;height:40px;border-radius:10px;flex:none}#inst .tx{flex:1;min-width:0}#inst b{display:block;font-size:14px;margin-bottom:2px}#inst .ib{border:0;border-radius:12px;padding:10px 14px;font:700 14px/1 inherit;font-family:inherit;background:var(--acc,#27557f);color:var(--onacc,#fff);flex:none}#inst .ix{border:0;background:transparent;color:var(--mut,#6a7078);font-size:22px;line-height:1;padding:2px 4px;flex:none}";
+var box=null;
+function show(mode,ev){if(hidden()||box)return;document.head.appendChild(st);box=document.createElement('div');box.id='inst';
+  var ic=(document.getElementById('touch')&&document.getElementById('touch').href)||'apple-touch-icon.png';
+  box.innerHTML='<img alt="" src="'+ic+'"><div class="tx"><b>'+t(0)+'</b>'+(mode==='android'?'':(mode==='inapp'?t(3):t(1)))+'</div>'+(mode==='android'?'<button type="button" class="ib">'+t(2)+'</button>':'')+'<button type="button" class="ix" aria-label="×">×</button>';
+  document.body.appendChild(box);
+  box.querySelector('.ix').onclick=function(){try{localStorage.setItem(KEY,String(Date.now()+3*864e5))}catch(e){}box.remove();box=null};
+  var ib=box.querySelector('.ib');if(ib)ib.onclick=function(){ev.prompt();ev.userChoice&&ev.userChoice.then(function(){box&&box.remove();box=null})}}
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();show('android',e)});
+window.addEventListener('appinstalled',function(){box&&box.remove();box=null});
+if(ios)setTimeout(function(){show(inapp?'inapp':'ios')},1200);
+else if(inapp)setTimeout(function(){show('inapp')},1200);
 })();</script>
 <script>/* ===== Снег (праздничное оформление) ===== */
 (function(){
