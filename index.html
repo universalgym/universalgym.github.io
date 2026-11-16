@@ -589,7 +589,7 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261116142827';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261116153852';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -752,7 +752,13 @@ function hash(){var body=L.k.replace(/^U[GW]-/,'').replace(/-/g,'');
   return crypto.subtle.digest('SHA-256',new TextEncoder().encode('UGK|'+APP+'|'+body)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')})}
 function viaApi(sh){return fetch(LIC_CFG.api+APP+'/'+sh+'.json',{cache:'no-cache'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json().then(function(j){return JSON.parse(atob(j.content.replace(/\n/g,'')))})})}
 function viaPages(sh){return fetch(LIC_CFG.list+APP+'/'+sh+'.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json()})}
-function lookup(){return hash().then(function(h){var sh=h.slice(0,2),id=h.slice(2,18);
+function normPh(v){var d=String(v||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10&&d[0]==='9')d='7'+d;return (d.length<10||d.length>15)?'':d}
+/* покупка по номеру телефона: работает в любой копии приложения (Safari или иконка) и на новом телефоне */
+function byPhone(){if(!L.ph)return Promise.resolve(null);return crypto.subtle.digest('SHA-256',new TextEncoder().encode('UGP|'+APP+'|'+L.ph)).then(function(b){var h=Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join(''),sh='p/'+h.slice(0,2),id=h.slice(2,18);
+  function res(d){var u=d&&!Array.isArray(d.a)&&d[id];return u&&+u>Date.now()?{s:'a',u:+u}:null}
+  return viaApi(sh).then(res,function(){return viaPages(sh).then(res)}).then(function(r){return r||viaPages(sh).then(res,function(){return null})})}).catch(function(){return null})}
+function lookup(){return lookupK().then(function(r){if(r.s==='b'||(r.s==='a'&&r.u>Date.now()))return r;return byPhone().then(function(p){return p||r})})}
+function lookupK(){return hash().then(function(h){var sh=h.slice(0,2),id=h.slice(2,18);
   function res(d){if((d.b||[]).indexOf(id)>=0)return {s:'b'};if((d.m||[]).indexOf(id)>=0&&!(d.a&&!Array.isArray(d.a)&&d.a[id]))return {s:'m'};var a=d.a||{};if(Array.isArray(a))return a.indexOf(id)>=0?{s:'a',u:Date.now()+LIC_CFG.yearMs}:{s:''};return a[id]?{s:'a',u:+a[id]}:{s:''}}
   return viaApi(sh).then(res,function(){return viaPages(sh).then(res)}).then(function(r){if(r.s==='b'||r.s==='m'||(r.s==='a'&&r.u>Date.now()))return r;return viaPages(sh).then(function(d){var q=res(d);return (q.s==='b'||q.s==='m'||(q.s==='a'&&q.u>Date.now()))?q:r},function(){return r})})})}
 
@@ -806,7 +812,7 @@ function draw(state){
   var cp=document.getElementById('licCp'),ph=document.getElementById('licPh'),er=document.getElementById('licEr'),x=document.getElementById('licX');
   if(x)x.onclick=function(){ov.hidden=true;cur=''};
   [].forEach.call(ov.querySelectorAll('.lpl button'),function(b){b.onclick=function(){L.pl=b.getAttribute('data-pl');save();[].forEach.call(ov.querySelectorAll('.lpl button'),function(q){q.classList.toggle('on',q===b)})}});
-  if(ph)ph.oninput=function(){er.textContent=''};
+  var pt=null;if(ph)ph.oninput=function(){er.textContent='';clearTimeout(pt);pt=setTimeout(function(){var d=normPh(ph.value);if(d&&d!==L.ph){L.ph=d;save();poll()}},700)};
   function mk(){
     var d=(ph.value||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10&&d[0]==='9')d='7'+d;
     if(d.length<10||d.length>15){er.textContent=t(16);ph.focus();return null}
