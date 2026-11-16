@@ -43,7 +43,7 @@ input.w{width:100%;text-align:right;font:600 16px inherit;font-family:inherit;co
 input.w:focus{outline:2px solid var(--acc);background:var(--card)}
 .pic{border:0;background:var(--inp);border-radius:99px;font-size:13px;line-height:1;padding:3px 7px;margin-right:6px;vertical-align:1px;cursor:pointer}
 #picov{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:16px}
-#picov img{width:min(88vw,88vh,420px);height:auto;border-radius:18px;box-shadow:0 10px 40px rgba(0,0,0,.4);background:#efe6d6}
+#picov img{width:min(44vw,44vh,210px);height:auto;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.4);background:#efe6d6}
 .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:99px;background:var(--inp);color:var(--mut);margin-left:6px;vertical-align:1px}
 .tag.b{background:var(--acc);color:var(--onacc)}
 .chk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mut);margin-top:6px}
@@ -638,7 +638,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261117015410';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261117015519';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
