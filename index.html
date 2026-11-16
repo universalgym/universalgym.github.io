@@ -589,7 +589,7 @@ if(g0){GSEL=g0;try{sessionStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{r
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261116104611';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261116113009';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -718,10 +718,10 @@ var LIC_CFG={
   priceY: '2 990 ₽',           // цена за год — пусто: строка не показывается
   yearMs: 183*24*60*60*1000,   // срок доступа после активации: полгода
   ig: '',                      // имя Instagram без @ — пусто: кнопка не показывается
-  list: '/klyuchi/list/UG/',   // список активированных ключей в репозитории Klyuchi
-  api: 'https://api.github.com/repos/chamsutdinov-bot/klyuchi/contents/list/UG/'
+  list: '/klyuchi/list/',   // список активированных ключей в репозитории Klyuchi
+  api: 'https://api.github.com/repos/chamsutdinov-bot/klyuchi/contents/list/'
 };
-var LK='ug_lic3', A='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+var APP='UG',KEYS={UG:'ug_lic3',UW:'uw_lic3'},LK=KEYS.UG, A='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 var T={
  ru:['Пробный период закончился','Чтобы продолжить пользоваться приложением, отправьте этот ключ и оплату:','Скопировать ключ','Ключ скопирован','Ожидаем активацию. Приложение откроется само, как только ключ активируют.','Готово! Приложение активировано','Доступ по этому ключу заблокирован.','Написать в Instagram','Срок подписки закончился','Доступ на 6 месяцев:','Ваш номер телефона','Скопировать сообщение','Сообщение скопировано','Восстановить покупку','Если вы уже покупали подписку, введите номер телефона, на который была покупка, и отправьте нам это сообщение.','Подписка перенесена на другое устройство','Введите номер телефона полностью','Закрыть','Подписка активна до','Доступ на 1 год:','Покупка доступа','Чтобы пользоваться приложением, введите номер телефона и отправьте нам сообщение вместе с оплатой:'],
  en:['Your free trial has ended','To keep using the app, send this key together with your payment:','Copy key','Key copied','Waiting for activation. The app will unlock by itself once the key is activated.','Done! The app is activated','Access for this key has been blocked.','Message on Instagram','Your subscription has ended','Access for 6 months:','Your phone number','Copy message','Message copied','Restore purchase','If you have already bought a subscription, enter the phone number used for the purchase and send us this message.','Your subscription was moved to another device','Enter your full phone number','Close','Subscription active until','Access for 1 year:','Get access','To use the app, enter your phone number and send us the message together with your payment:'],
@@ -741,15 +741,17 @@ var T={
 function lang(){var c=null;try{c=localStorage.getItem('trenirovki_lang')}catch(e){}if(!c)c=(navigator.language||'en').slice(0,2).toLowerCase();return T[c]?c:'en'}
 function t(i){return T[lang()][i]}
 function load(){try{return JSON.parse(localStorage.getItem(LK)||'null')}catch(e){return null}}
-function save(){try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}}
+function save(){try{localStorage.setItem(KEYS[APP],JSON.stringify(L))}catch(e){}}
 function newKey(){var r=new Uint8Array(11);crypto.getRandomValues(r);var b='';for(var i=0;i<11;i++)b+=A[r[i]&31];var s=0;for(i=0;i<11;i++)s+=A.indexOf(b[i])*(i+1);b+=A[s%32];return 'UG-'+b.slice(0,4)+'-'+b.slice(4,8)+'-'+b.slice(8)}
 var L=load();
 if(!L||!L.k){L={k:newKey(),t0:Date.now(),ok:false};save()}
+var LG=L,LW=null;try{LW=JSON.parse(localStorage.getItem(KEYS.UW)||'null')}catch(e){}
+if(!LW||!LW.k){LW={k:'UW-'+LG.k.slice(3),t0:Date.now(),ok:false};try{localStorage.setItem(KEYS.UW,JSON.stringify(LW))}catch(e){}}   /* у режима Woman своя подписка: тот же ключ телефона, но с приставкой UW */
 
-function hash(){var body=L.k.replace(/^UG-/,'').replace(/-/g,'');
-  return crypto.subtle.digest('SHA-256',new TextEncoder().encode('UGK|UG|'+body)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')})}
-function viaApi(sh){return fetch(LIC_CFG.api+sh+'.json',{cache:'no-cache'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json().then(function(j){return JSON.parse(atob(j.content.replace(/\n/g,'')))})})}
-function viaPages(sh){return fetch(LIC_CFG.list+sh+'.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json()})}
+function hash(){var body=L.k.replace(/^U[GW]-/,'').replace(/-/g,'');
+  return crypto.subtle.digest('SHA-256',new TextEncoder().encode('UGK|'+APP+'|'+body)).then(function(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')})}
+function viaApi(sh){return fetch(LIC_CFG.api+APP+'/'+sh+'.json',{cache:'no-cache'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json().then(function(j){return JSON.parse(atob(j.content.replace(/\n/g,'')))})})}
+function viaPages(sh){return fetch(LIC_CFG.list+APP+'/'+sh+'.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(r.status===404)return {a:[],b:[]};if(!r.ok)throw 0;return r.json()})}
 function lookup(){return hash().then(function(h){var sh=h.slice(0,2),id=h.slice(2,18);
   function res(d){if((d.b||[]).indexOf(id)>=0)return {s:'b'};if((d.m||[]).indexOf(id)>=0&&!(d.a&&!Array.isArray(d.a)&&d.a[id]))return {s:'m'};var a=d.a||{};if(Array.isArray(a))return a.indexOf(id)>=0?{s:'a',u:Date.now()+LIC_CFG.yearMs}:{s:''};return a[id]?{s:'a',u:+a[id]}:{s:''}}
   return viaApi(sh).then(res,function(){return viaPages(sh).then(res)}).then(function(r){if(r.s==='b'||r.s==='m'||(r.s==='a'&&r.u>Date.now()))return r;return viaPages(sh).then(function(d){var q=res(d);return (q.s==='b'||q.s==='m'||(q.s==='a'&&q.u>Date.now()))?q:r},function(){return r})})})}
@@ -801,7 +803,7 @@ function draw(state){
     var d=(ph.value||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10&&d[0]==='9')d='7'+d;
     if(d.length<10||d.length>15){er.textContent=t(16);ph.focus();return}
     L.ph=d;save();
-    var m='Universal Gym — '+ttl(state)+'\n📱 +'+d+'\n🔑 '+L.k;
+    var m='Universal Gym '+(APP==='UW'?'Woman':'Men')+' — '+ttl(state)+'\n📱 +'+d+'\n🔑 '+L.k;
     if(state!=='restore')m+='\n📅 '+(L.pl==='y'?'12':'6')+' · '+(L.pl==='y'?t(19)+' '+LIC_CFG.priceY:t(9)+' '+LIC_CFG.price);
     var ok=function(){cp.textContent=t(12);setTimeout(function(){cp.textContent=t(11)},1800)};
     try{navigator.clipboard.writeText(m).then(ok,function(){fb(m);ok()})}catch(e){fb(m);ok()}
@@ -817,6 +819,9 @@ function addRestoreBtn(){var p=document.getElementById('pan');if(!p||document.ge
   var lg=document.getElementById('lang');if(lg)lg.addEventListener('change',function(){setTimeout(function(){var b=document.getElementById('licRs');if(b)b.textContent=t(13)},50)})}
 addRestoreBtn();
 var timer=null,lastBlk=0,tw=null;
+function modeApp(){return document.body.getAttribute('data-gg')==='w'?'UW':'UG'}
+function syncMode(){var a=modeApp();if(a===APP)return;APP=a;L=a==='UW'?LW:LG;stop();lastBlk=0;if(!ov.hidden&&cur!=='done'){ov.hidden=true;cur=''}check()}
+try{new MutationObserver(syncMode).observe(document.body,{attributes:true,attributeFilter:['data-gg']})}catch(e){}
 function active(){return L.until?Date.now()<L.until:!!L.ok}
 function trialOver(){return Date.now()-L.t0>=LIC_CFG.trialMs}
 function wake(ms){if(tw)clearTimeout(tw);tw=setTimeout(function(){tw=null;check()},Math.max(500,Math.min(ms+500,2147483000)))}
@@ -850,6 +855,7 @@ function check(){
 document.addEventListener('visibilitychange',function(){if(!document.hidden)check()});
 if(typeof window.startW==='function'){var _sw=window.startW;window.startW=function(){if(active()||(!trialOver()&&!L.ok&&!L.until&&!L.mv&&!L.blk))return _sw.apply(this,arguments);
   draw(L.blk?'blocked':L.mv?'moved':(L.ok||L.until)?'renew':'wait')}}
+APP=modeApp();L=APP==='UW'?LW:LG;
 check();
 })();</script>
 </body>
