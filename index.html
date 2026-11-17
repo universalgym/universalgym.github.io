@@ -640,7 +640,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261117141205';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261117141345';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -938,26 +938,5 @@ if(typeof window.startW==='function'){var _sw=window.startW;window.startW=functi
 APP=modeApp();L=APP==='UW'?LW:LG;
 check();tgLoad();
 })();</script>
-<style>
-#ugad{position:fixed;inset:0;z-index:100000;background:#000;transition:opacity .45s;font-family:-apple-system,system-ui,sans-serif}
-#ugad.out{opacity:0;pointer-events:none}
-#ugad video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#ugad .skip{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:14px;border:0;border-radius:99px;background:rgba(0,0,0,.45);color:#fff;font-size:13px;padding:6px 12px;z-index:2}
-#ugad .tag{position:absolute;top:calc(env(safe-area-inset-top) + 18px);left:16px;font-size:11px;letter-spacing:.08em;color:#fff !important;background:none !important;text-shadow:0 1px 3px rgba(0,0,0,.6);z-index:2}
-#ugad .bar{position:absolute;left:0;bottom:0;height:4px;width:0;background:#ffd23f;z-index:2}
-</style>
-<script>
-(function(){
-try{if(localStorage.getItem('ug_ad_seen3'))return;localStorage.setItem('ug_ad_seen3','1')}catch(e){}
-var o=document.createElement('div');o.id='ugad';
-o.innerHTML='<video src="ad/ad.mp4" muted playsinline autoplay preload="auto"></video><span class="tag">РЕКЛАМА</span><button class="skip">Пропустить ✕</button><div class="bar"></div>';
-var v=o.querySelector('video'),bar=o.querySelector('.bar'),done=0;
-function close(){if(done)return;done=1;o.classList.add('out');setTimeout(function(){o.remove()},500)}
-o.onclick=close;v.onended=close;v.onerror=close;
-v.ontimeupdate=function(){if(v.duration)bar.style.width=(v.currentTime/v.duration*100)+'%'};
-document.body.appendChild(o);var p=v.play();if(p&&p.catch)p.catch(function(){});
-setTimeout(close,8000);
-})();
-</script>
 </body>
 </html>
