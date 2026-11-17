@@ -640,7 +640,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261117133846';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261117133935';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -938,5 +938,37 @@ if(typeof window.startW==='function'){var _sw=window.startW;window.startW=functi
 APP=modeApp();L=APP==='UW'?LW:LG;
 check();tgLoad();
 })();</script>
+<style>
+#ugad{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,#1fb6a6 0%,#0b5d63 55%,#062f36 100%);overflow:hidden;opacity:1;transition:opacity .45s;font-family:-apple-system,system-ui,sans-serif;color:#fff}
+#ugad.out{opacity:0;pointer-events:none}
+#ugad .can{width:min(34vw,150px);animation:ugdrop .9s cubic-bezier(.2,1.4,.4,1) both,ugwob 2.4s ease-in-out .9s infinite}
+#ugad .ttl{position:absolute;left:0;right:0;bottom:22%;text-align:center;font-weight:800;font-size:clamp(26px,8vw,40px);letter-spacing:.06em;animation:ugup .6s ease .7s both}
+#ugad .sub{color:#fff !important;position:absolute;left:0;right:0;bottom:calc(22% - 34px);text-align:center;font-size:15px;opacity:.9;animation:ugup .6s ease 1s both}
+#ugad .skip{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:14px;border:0;border-radius:99px;background:rgba(255,255,255,.18);color:#fff;font-size:13px;padding:6px 12px}
+#ugad .tag{color:#fff !important;background:none;position:absolute;top:calc(env(safe-area-inset-top) + 18px);left:16px;font-size:11px;opacity:.7;letter-spacing:.08em}
+#ugad .bar{position:absolute;left:0;bottom:0;height:4px;background:#ffd166;animation:ugbar 3s linear both}
+#ugad .b{position:absolute;bottom:-20px;border-radius:50%;border:2px solid rgba(255,255,255,.55);animation:ugbub linear infinite}
+@keyframes ugdrop{from{transform:translateY(-120vh) rotate(-25deg)}to{transform:none}}
+@keyframes ugwob{50%{transform:rotate(4deg) scale(1.03)}}
+@keyframes ugup{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}
+@keyframes ugbar{from{width:0}to{width:100%}}
+@keyframes ugbub{to{transform:translateY(-110vh)}}
+</style>
+<script>
+(function(){
+try{if(localStorage.getItem('ug_ad_seen'))return;localStorage.setItem('ug_ad_seen','1')}catch(e){}
+var AD={sec:3,title:'VOLTA',sub:'Освежает после каждого подхода',tag:'РЕКЛАМА'};
+var o=document.createElement('div');o.id='ugad';
+var bub='';for(var i=0;i<14;i++){var s=6+Math.random()*16;bub+='<i class="b" style="left:'+(Math.random()*100)+'%;width:'+s+'px;height:'+s+'px;animation-duration:'+(2+Math.random()*2.5)+'s;animation-delay:'+(-Math.random()*3)+'s"></i>'}
+o.innerHTML=bub+'<span class="tag">'+AD.tag+'</span><button class="skip">Пропустить ✕</button>'+
+'<svg class="can" viewBox="0 0 100 190"><defs><linearGradient id="ugg" x1="0" x2="1"><stop offset="0" stop-color="#ff7a59"/><stop offset=".5" stop-color="#ffd166"/><stop offset="1" stop-color="#ff5d8f"/></linearGradient></defs>'+
+'<rect x="10" y="14" width="80" height="166" rx="14" fill="url(#ugg)"/><rect x="18" y="4" width="64" height="16" rx="6" fill="#d9dde3"/><rect x="10" y="22" width="80" height="6" fill="#c9ced6"/><rect x="10" y="166" width="80" height="6" fill="#c9ced6"/>'+
+'<text x="50" y="92" text-anchor="middle" font-size="19" font-weight="800" fill="#fff" font-family="system-ui">VOLTA</text><path d="M44 104l10-14-3 11h7l-10 14 3-11z" fill="#fff"/><rect x="22" y="30" width="7" height="130" rx="3" fill="#fff" opacity=".25"/></svg>'+
+'<div class="ttl">'+AD.title+'</div><div class="sub">'+AD.sub+'</div><div class="bar"></div>';
+function close(){o.classList.add('out');setTimeout(function(){o.remove()},500)}
+o.onclick=close;
+document.body.appendChild(o);setTimeout(close,AD.sec*1000);
+})();
+</script>
 </body>
 </html>
