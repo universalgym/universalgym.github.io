@@ -640,7 +640,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261117140414';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261117141205';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -939,49 +939,24 @@ APP=modeApp();L=APP==='UW'?LW:LG;
 check();tgLoad();
 })();</script>
 <style>
-#ugad{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 42%,#ff9a3c 0%,#e8452c 55%,#7a1420 100%);overflow:hidden;transition:opacity .45s;font-family:-apple-system,system-ui,sans-serif;color:#fff}
+#ugad{position:fixed;inset:0;z-index:100000;background:#000;transition:opacity .45s;font-family:-apple-system,system-ui,sans-serif}
 #ugad.out{opacity:0;pointer-events:none}
-#ugad .stage{position:relative;width:min(70vw,300px);height:min(70vw,300px)}
-#ugad .can{position:absolute;left:50%;top:50%;width:38%;margin-left:-19%;margin-top:-36%;transform-origin:50% 60%;animation:ugin .55s cubic-bezier(.2,1.5,.4,1) both,ugsq .35s cubic-bezier(.6,0,.4,1) 1.15s forwards}
-#ugad .hand{position:absolute;top:50%;right:-60%;width:62%;margin-top:-14%;animation:ughand .5s cubic-bezier(.2,.9,.3,1) .6s forwards,ughsq .35s cubic-bezier(.6,0,.4,1) 1.15s forwards}
-#ugad .d{position:absolute;left:50%;top:40%;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 35% 30%,#fff,#fff3b0 35%,#ffcf33 80%);box-shadow:0 0 0 1.5px rgba(150,40,0,.35),0 2px 6px rgba(0,0,0,.25);opacity:0;animation:ugdrop 1.1s cubic-bezier(.15,.6,.4,1) 1.3s forwards}
-#ugad .splash{position:absolute;left:50%;top:30%;width:10%;height:10%;margin-left:-5%;border-radius:50%;background:radial-gradient(#fff,#fff3b0 45%,rgba(255,207,51,.7) 65%,transparent 72%);opacity:0;animation:ugboom .6s ease-out 1.3s forwards}
-#ugad .ttl{position:absolute;left:0;right:0;bottom:17%;text-align:center;font-weight:900;font-size:clamp(28px,9vw,44px);letter-spacing:.05em;color:#fff !important;opacity:0;animation:ugup .45s ease 1.9s forwards}
-#ugad .sub{position:absolute;left:0;right:0;bottom:calc(17% - 30px);text-align:center;font-size:15px;color:#fff !important;opacity:0;animation:ugup .45s ease 2.1s forwards}
-#ugad .skip{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:14px;border:0;border-radius:99px;background:rgba(255,255,255,.2);color:#fff;font-size:13px;padding:6px 12px}
-#ugad .tag{background:none !important;position:absolute;top:calc(env(safe-area-inset-top) + 18px);left:16px;font-size:11px;opacity:.75;letter-spacing:.08em;color:#fff !important}
-#ugad .bar{position:absolute;left:0;bottom:0;height:4px;background:#ffd23f;animation:ugbar 3s linear both}
-@keyframes ugin{from{transform:scale(0) rotate(-20deg)}to{transform:none}}
-@keyframes ugsq{to{transform:scaleX(.62) scaleY(.94) skewY(-4deg)}}
-@keyframes ughand{to{right:2%}}
-@keyframes ughsq{to{right:13%}}
-@keyframes ugdrop{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(1)}}
-@keyframes ugboom{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(9)}}
-@keyframes ugup{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
-@keyframes ugbar{from{width:0}to{width:100%}}
+#ugad video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#ugad .skip{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:14px;border:0;border-radius:99px;background:rgba(0,0,0,.45);color:#fff;font-size:13px;padding:6px 12px;z-index:2}
+#ugad .tag{position:absolute;top:calc(env(safe-area-inset-top) + 18px);left:16px;font-size:11px;letter-spacing:.08em;color:#fff !important;background:none !important;text-shadow:0 1px 3px rgba(0,0,0,.6);z-index:2}
+#ugad .bar{position:absolute;left:0;bottom:0;height:4px;width:0;background:#ffd23f;z-index:2}
 </style>
 <script>
 (function(){
-try{if(localStorage.getItem('ug_ad_seen2'))return;localStorage.setItem('ug_ad_seen2','1')}catch(e){}
-var AD={sec:3,name:'VOLTA',sub:'Взрыв свежести после тренировки',tag:'РЕКЛАМА'};
+try{if(localStorage.getItem('ug_ad_seen3'))return;localStorage.setItem('ug_ad_seen3','1')}catch(e){}
 var o=document.createElement('div');o.id='ugad';
-var drops='';for(var i=0;i<40;i++){var a=-Math.PI*(.02+Math.random()*.96),r=90+Math.random()*170,s=9+Math.random()*20;
-drops+='<i class="d" style="width:'+s+'px;height:'+(s*1.2)+'px;margin-left:'+(-s/2)+'px;--x:'+Math.round(Math.cos(a)*r*1.6)+'px;--y:'+Math.round(Math.sin(a)*r+90*Math.random())+'px;animation-delay:'+(1.28+Math.random()*.15)+'s"></i>'}
-var can='<svg class="can" viewBox="0 0 100 190"><defs><linearGradient id="ugc" x1="0" x2="1"><stop offset="0" stop-color="#b8bec7"/><stop offset=".35" stop-color="#ffffff"/><stop offset=".6" stop-color="#d7dbe1"/><stop offset="1" stop-color="#8d949e"/></linearGradient><linearGradient id="ugl" x1="0" x2="1"><stop offset="0" stop-color="#c81d25"/><stop offset=".45" stop-color="#ff4a3d"/><stop offset="1" stop-color="#9e1018"/></linearGradient></defs>'+
-'<path d="M14 18 Q14 12 22 10 L78 10 Q86 12 86 18 L90 30 L90 168 L86 180 Q84 186 76 186 L24 186 Q16 186 14 180 L10 168 L10 30 Z" fill="url(#ugl)"/>'+
-'<path d="M14 18 Q14 12 22 10 L78 10 Q86 12 86 18 L90 30 L10 30 Z" fill="url(#ugc)"/><path d="M10 168 L90 168 L86 180 Q84 186 76 186 L24 186 Q16 186 14 180 Z" fill="url(#ugc)"/>'+
-'<ellipse cx="50" cy="12" rx="30" ry="4" fill="#e9ecf0"/><rect x="42" y="8" width="16" height="5" rx="2.5" fill="#9aa1ab"/>'+
-'<text x="50" y="96" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" font-family="system-ui" transform="rotate(-90 50 96)">'+AD.name+'</text>'+
-'<text x="50" y="160" text-anchor="middle" font-size="9" fill="#fff" opacity=".85" font-family="system-ui">0,33 л</text>'+
-'<rect x="18" y="34" width="8" height="128" rx="4" fill="#fff" opacity=".22"/></svg>';
-var hand='<svg class="hand" viewBox="0 0 160 110"><g fill="#e9b48f" stroke="#b97f5c" stroke-width="2">'+
-'<path d="M150 20 L160 20 L160 95 L150 95 Q110 104 92 92 L92 30 Q112 12 150 20 Z"/>'+
-'<rect x="8" y="18" width="92" height="17" rx="8.5"/><rect x="2" y="37" width="98" height="17" rx="8.5"/><rect x="5" y="56" width="95" height="17" rx="8.5"/><rect x="14" y="75" width="86" height="16" rx="8"/>'+
-'<path d="M96 22 Q74 2 54 10 Q46 16 56 22 Q72 22 88 32 Z"/></g>'+
-'<g stroke="#b97f5c" stroke-width="1.5" fill="none" opacity=".7"><path d="M30 22v9M26 41v9M28 60v9M34 79v8"/></g></svg>';
-o.innerHTML='<span class="tag">'+AD.tag+'</span><button class="skip">Пропустить ✕</button><div class="stage">'+can+'<div class="splash"></div>'+drops+hand+'</div><div class="ttl">'+AD.name+'</div><div class="sub">'+AD.sub+'</div><div class="bar"></div>';
-function close(){o.classList.add('out');setTimeout(function(){o.remove()},500)}
-o.onclick=close;document.body.appendChild(o);setTimeout(close,AD.sec*1000);
+o.innerHTML='<video src="ad/ad.mp4" muted playsinline autoplay preload="auto"></video><span class="tag">РЕКЛАМА</span><button class="skip">Пропустить ✕</button><div class="bar"></div>';
+var v=o.querySelector('video'),bar=o.querySelector('.bar'),done=0;
+function close(){if(done)return;done=1;o.classList.add('out');setTimeout(function(){o.remove()},500)}
+o.onclick=close;v.onended=close;v.onerror=close;
+v.ontimeupdate=function(){if(v.duration)bar.style.width=(v.currentTime/v.duration*100)+'%'};
+document.body.appendChild(o);var p=v.play();if(p&&p.catch)p.catch(function(){});
+setTimeout(close,8000);
 })();
 </script>
 </body>
