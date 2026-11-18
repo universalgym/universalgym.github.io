@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<script>/* выбранная тема — сразу, до первой отрисовки, чтобы не мелькал светлый фон */try{var _b=localStorage.getItem('trenirovki_bg');if(_b)document.documentElement.setAttribute('data-bg',_b)}catch(e){}</script>
+<script>/* выбранная тема — сразу, до первой отрисовки, чтобы не мелькал светлый фон */var _b='gold';try{_b=localStorage.getItem('trenirovki_bg')||'gold'}catch(e){}document.documentElement.setAttribute('data-bg',_b)</script>
 <script>/* перенос данных со старого адреса chamsutdinov-bot.github.io/Universalgym */
 (function(){var h=location.hash;if(h.indexOf('#ugimp=')!==0)return;
 try{var d=JSON.parse(decodeURIComponent(escape(atob(h.slice(7).replace(/-/g,'+').replace(/_/g,'/')))));
@@ -562,7 +562,7 @@ try{cur=localStorage.getItem(K)}catch(e){}
 function mark(k){Array.prototype.forEach.call(box.children,function(b){b.className='sw'+(b.getAttribute('data-k')==k?' on':'')})}
 function ap(k){document.documentElement.setAttribute('data-bg',k);mark(k);try{localStorage.setItem(K,k)}catch(e){}}
 L.forEach(function(c){var b=document.createElement('button');b.className='sw';b.setAttribute('data-k',c[0]);b.title=c[1];b.setAttribute('aria-label',c[1]);b.innerHTML='<i style="background:linear-gradient(135deg,'+c[2]+' 58%,'+c[3]+' 58%)"></i>'+c[1];b.onclick=function(){ap(c[0])};box.appendChild(b)});
-if(cur&&L.some(function(c){return c[0]==cur}))ap(cur);
+if(!(cur&&L.some(function(c){return c[0]==cur})))cur='gold';document.documentElement.setAttribute('data-bg',cur);mark(cur);
 document.getElementById('gear').onclick=function(){closePg();document.getElementById('rpan').hidden=true;pan.hidden=!pan.hidden};document.getElementById('rbtn').onclick=openRep;document.getElementById('pcl').onclick=function(){pan.hidden=true};
 })();
 </script>
@@ -693,7 +693,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261118105229';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261118105455';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
