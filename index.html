@@ -200,6 +200,7 @@ input.w::placeholder{color:rgba(255,255,255,.55)}
 .sub{color:rgba(255,255,255,.85)!important}
 header button,#gear,#rbtn{background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.22)!important;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
 #pan,#rpan,#ppan,#lpop>.card{background:linear-gradient(135deg,rgba(40,48,62,.82),rgba(18,22,30,.86))!important;-webkit-backdrop-filter:blur(30px) saturate(160%);backdrop-filter:blur(30px) saturate(160%)}
+.sw-del{opacity:0;transition:opacity .15s;border-radius:0 12px 12px 0}.sw-w:has(.sw-in.drag) .sw-del,.sw-w:has(.sw-in[data-o="1"]) .sw-del{opacity:1}
 </style>
 </head>
 <body>
@@ -674,7 +675,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261118102545';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261118103911';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
