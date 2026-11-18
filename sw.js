@@ -20,3 +20,10 @@ e.respondWith(caches.match(r).then(function(hit){                       /* ка�
   var net=fetch(r).then(function(res){return put(r,res)});
   if(hit){e.waitUntil(net.catch(function(){}));return hit}return net}));
 });
+
+/* приложение присылает список всех картинок — скачиваем в память те, которых ещё нет */
+self.addEventListener('message',function(e){var d=e.data;if(!d||d.t!=='pre'||!d.urls)return;
+e.waitUntil(caches.open(C).then(function(c){var q=d.urls.slice(),n=0;
+ function next(){if(!q.length)return Promise.resolve();var u=q.shift();
+  return c.match(u).then(function(hit){if(hit)return;return fetch(u).then(function(r){if(r.ok)return c.put(u,r)}).catch(function(){})}).then(next)}
+ return Promise.all([next(),next(),next()])}))});
