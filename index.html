@@ -694,7 +694,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261118185442';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;location.replace(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261118190731';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;location.replace(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -914,7 +914,7 @@ function draw(state){
       if(LIC_CFG.price)h+='<button type="button" data-pl="h" class="'+(L.pl==='h'?'on':'')+'"><span>'+t(9).replace(/[:：]\s*$/,'')+'</span><b>'+LIC_CFG.price+'</b></button>';
       if(LIC_CFG.priceY)h+='<button type="button" data-pl="y" class="'+(L.pl==='y'?'on':'')+'"><span>'+t(19).replace(/[:：]\s*$/,'')+'</span><b>'+LIC_CFG.priceY+'</b></button>';
       h+='</div>';
-      if(LIC_CFG.pay){var P=LIC_CFG.pay,am=L.pl==='y'?LIC_CFG.priceY:LIC_CFG.price;h+='<a class="lbt b1" id="licPay" href="'+P.link+'" target="_blank" rel="noopener">'+t(29)+' <span id="licAm">'+am+'</span></a><div class="lqc"><img class="lqr" alt="QR" src="'+P.qr+'"><div class="lpn">'+t(30)+'</div></div>'}}
+      if(LIC_CFG.pay){var P=LIC_CFG.pay,am=L.pl==='y'?LIC_CFG.priceY:LIC_CFG.price;h+='<a class="lbt b1" id="licPay" href="'+P.link+'" target="_blank" rel="noopener">'+t(29)+' <span id="licAm">'+am+'</span></a>'}}
     var rcb=TG&&(state==='wait'||state==='renew');
     h+='<div class="'+(rcb?'lrow':'')+'"><input type="tel" id="licPh" inputmode="tel" autocomplete="tel" placeholder="'+t(10)+'" value="'+(L.ph?'+'+L.ph:'')+'">'+(rcb?'<label class="lsq'+(RC?' on':'')+'" id="licRcL" aria-label="'+t(22)+'"><input type="file" id="licRc" accept="image/*,application/pdf" style="display:none"><span id="licRcT">'+(RC?'✓':'📎')+'</span></label>':'')+'</div><div class="er" id="licEr"></div>';
     if(TG||LIC_CFG.req)h+='<button type="button" class="b1" id="licSd">'+t(24)+'</button>';
