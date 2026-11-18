@@ -694,7 +694,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>var BUILD='20261118171908';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
+<script>var BUILD='20261118175121';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;var k='gym_try';if(sessionStorage.getItem(k)==j.b)return;sessionStorage.setItem(k,j.b);location.replace(location.pathname+'?v='+j.b)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -723,8 +723,7 @@ function show(mode,ev){if(hidden()||box)return;document.head.appendChild(st);box
   var ib=box.querySelector('.ib');if(ib)ib.onclick=function(){ev.prompt();ev.userChoice&&ev.userChoice.then(function(){box&&box.remove();box=null})}}
 window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();show('android',e)});
 window.addEventListener('appinstalled',function(){box&&box.remove();box=null});
-if(ios)setTimeout(function(){show(inapp?'inapp':'ios')},1200);
-else if(inapp)setTimeout(function(){show('inapp')},1200);
+/* на iPhone и в Инстаграме полоска не показывается — вместо неё окно «как установить приложение» */
 })();</script>
 <script>/* ===== Снег (праздничное оформление) ===== */
 (function(){
