@@ -694,7 +694,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261119130954';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;location.replace(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261119131622';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;location.replace(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -1040,25 +1040,25 @@ d.innerHTML='<div class="ib"><h3>'+t[0]+'</h3><p>'+t[1]+'</p><ol><li><b class="n
 document.body.appendChild(d);d.querySelector('.ok').onclick=function(){d.hidden=true;try{localStorage.setItem('ug_ins2','1')}catch(e){}};
 })();</script>
 <style id="ugGlass">/* кнопки «жидкое стекло»: выбранные вкладки и большие кнопки */
-.seg button.on,.btn{position:relative!important;overflow:hidden!important;isolation:isolate;border:0!important;color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.35);
+.seg button.on,.btn,.tbar,#lic a#licPay,#ugIns button.ok{position:relative!important;overflow:hidden!important;isolation:isolate;border:0!important;color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.35);
 background:radial-gradient(60% 140% at 10% 0%,rgba(255,170,60,.55) 0,transparent 70%),radial-gradient(60% 140% at 95% 100%,rgba(255,95,40,.5) 0,transparent 70%),linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.05))!important;
 -webkit-backdrop-filter:blur(14px) saturate(1.8);backdrop-filter:blur(14px) saturate(1.8);
 box-shadow:inset 0 1.5px 1px rgba(255,255,255,.65),inset 0 -1px 1px rgba(255,255,255,.18),inset 0 0 0 1px rgba(255,255,255,.2),0 8px 24px rgba(0,0,0,.3)!important;
 transition:transform .45s cubic-bezier(.34,1.7,.5,1)}
-.seg button.on::after,.btn::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+.seg button.on::after,.btn::after,.tbar::after,#lic a#licPay::after,#ugIns button.ok::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
 background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.38) 48%,rgba(255,255,255,.1) 55%,transparent 65%);background-size:260% 100%;animation:lgShine 4.5s ease-in-out infinite}
 @keyframes lgShine{0%{background-position:130% 0}55%,100%{background-position:-30% 0}}
 
 
 /* желе-пузырь: при нажатии кнопка сплющивается и пружинит, в точке касания светится пузырь */
-.seg button,.btn{-webkit-tap-highlight-color:transparent}
-.seg button.on::before,.btn::before{content:'';position:absolute;left:var(--jx,50%);top:var(--jy,50%);width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;pointer-events:none;z-index:-1;opacity:0;
+.seg button,.btn,#lic a#licPay,#ugIns button.ok{-webkit-tap-highlight-color:transparent}
+.seg button.on::before,.btn::before,#lic a#licPay::before,#ugIns button.ok::before{content:'';position:absolute;left:var(--jx,50%);top:var(--jy,50%);width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;pointer-events:none;z-index:-1;opacity:0;
 background:radial-gradient(circle,rgba(255,255,255,.75) 0,rgba(255,255,255,.25) 40%,transparent 70%)}
-.jelly{animation:ugJelly .65s cubic-bezier(.3,1.4,.5,1) both}
+.jelly{animation:ugJelly .9s ease-out both}
 .jelly::before{animation:ugBub .6s ease-out both}
-@keyframes ugJelly{0%{transform:scale(1,1)}18%{transform:scale(1.07,.88)}36%{transform:scale(.95,1.07)}54%{transform:scale(1.03,.97)}72%{transform:scale(.99,1.01)}100%{transform:scale(1,1)}}
-@keyframes ugBub{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(28)}}
+@keyframes ugJelly{0%{transform:scale(1,1)}14%{transform:scale(1.16,.8)}30%{transform:scale(.88,1.14)}46%{transform:scale(1.08,.93)}62%{transform:scale(.96,1.05)}78%{transform:scale(1.02,.98)}100%{transform:scale(1,1)}}
+@keyframes ugBub{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(40)}}
 </style>
-<script>/* желе-пузырь на кнопках */document.addEventListener('pointerdown',function(e){var b=e.target.closest&&e.target.closest('.btn,.seg button');if(!b)return;var r=b.getBoundingClientRect();b.style.setProperty('--jx',(e.clientX-r.left)+'px');b.style.setProperty('--jy',(e.clientY-r.top)+'px');b.classList.remove('jelly');void b.offsetWidth;b.classList.add('jelly')},{passive:true});document.addEventListener('animationend',function(e){if(e.animationName==='ugJelly')e.target.classList.remove('jelly')});</script>
+<script>/* желе-пузырь на кнопках */document.addEventListener('pointerdown',function(e){var b=e.target.closest&&e.target.closest('.btn,.seg button,#licPay,#ugIns button.ok');if(!b)return;var r=b.getBoundingClientRect();b.style.setProperty('--jx',(e.clientX-r.left)+'px');b.style.setProperty('--jy',(e.clientY-r.top)+'px');b.classList.remove('jelly');void b.offsetWidth;b.classList.add('jelly')},{passive:true});document.addEventListener('animationend',function(e){if(e.animationName==='ugJelly')e.target.classList.remove('jelly')});</script>
 </body>
 </html>
