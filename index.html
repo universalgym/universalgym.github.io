@@ -627,7 +627,7 @@ function tt(s){if(cur=='ru'||!/[\u0400-\u04ff]/.test(s))return s;if(cur=='uk'&&f
  var r=s.replace(re,function(m){var v=D[m];return v&&v[i]?v[i]:m});c[s]=r;return r}
 var W=new WeakMap(),AT=['placeholder','aria-label','title'],busy=false;
 function node(n){
- if(n.nodeType==3){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE)$/.test(p.nodeName))return;var v=n.nodeValue,m=W.get(n);
+ if(n.nodeType==3){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE)$/.test(p.nodeName)||(p.closest&&p.closest('#fpan')))return;var v=n.nodeValue,m=W.get(n);
   if(m&&m.t===v){if(cur=='ru'){n.nodeValue=m.o;W.delete(n)}else{var t=tt(m.o);if(t!==v){n.nodeValue=t;m.t=t}}return}
   var o=v;var t=tt(o);if(t!==o){W.set(n,{o:o,t:t});n.nodeValue=t}else if(m)W.delete(n);return}
  if(n.nodeType!=1||/^(SCRIPT|STYLE)$/.test(n.nodeName)||n.id==='ugOf')return;
@@ -652,7 +652,7 @@ init();
 })();
 </script>
 <script>(function(){var ind=document.createElement('div'),y0=null,pull=0,TH=70;ind.id='ptr';ind.textContent='\u21bb';document.body.appendChild(ind);
-function panels(){return [].some.call(document.querySelectorAll('#ppan,#pan,#rpan,#gate'),function(e){return !e.hidden})}
+function panels(){return [].some.call(document.querySelectorAll('#ppan,#pan,#rpan,#gate,#fpan'),function(e){return !e.hidden})}
 function top(){return (window.pageYOffset||document.documentElement.scrollTop||0)<=0}
 document.addEventListener('touchstart',function(e){y0=(top()&&e.touches.length==1&&!panels())?e.touches[0].clientY:null;pull=0},{passive:true});
 document.addEventListener('touchmove',function(e){if(y0===null||ind.classList.contains('go'))return;var d=e.touches[0].clientY-y0;if(d>0&&top()){pull=d;ind.style.opacity=Math.min(1,d/TH);ind.style.transform='translateY('+(Math.min(d,TH*1.6)*.55-60+36)+'px) rotate('+(d*4)+'deg)'}else{pull=0;ind.style.opacity=0}},{passive:true});
@@ -731,7 +731,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261124094500';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261124095500';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -1105,5 +1105,74 @@ document.addEventListener('click',function(e){if(pass)return;var b=e.target.clos
   /* если кнопку перерисовали — доигрываем анимацию на новой */
   if(!document.body.contains(b)){var n=[].filter.call(document.querySelectorAll(SEL),function(q){return q.textContent===tx})[0];if(n){n.style.animationDelay='-'+D+'ms';n.classList.add('jelly');setTimeout(function(){n.style.animationDelay=''},900)}}},D)},true);
 document.addEventListener('animationend',function(e){if(e.animationName==='ugJelly')e.target.classList.remove('jelly')})})();</script>
+<style id="ugFood">
+/* Питание (2026-11-24): кнопка «Питание» вместо «Отчёт» в шапке; «Отчёт» — в Настройках */
+#rbtn{display:none!important}
+#fbtn{height:34px;padding:0 14px;border-radius:10px;border:1px solid var(--gb,var(--line));background:var(--seg,var(--card));-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;box-shadow:inset 0 1px 0 var(--hl,transparent)}
+#fbtn:active{transform:scale(.96)}
+#repSet{display:block;width:100%;margin:0 0 10px;padding:9px;border-radius:12px;border:1px solid var(--line);background:var(--inp);color:var(--ink);font:600 15px inherit;font-family:inherit;cursor:pointer}
+#repSet:active{transform:scale(.98)}
+#fpan{padding:10px 12px;position:fixed;z-index:50;left:50%;top:50%;transform:translate(-50%,-50%);width:min(370px,calc(100vw - 40px));max-height:calc(100dvh - 32px);overflow-y:auto;margin:0;box-shadow:0 0 0 100vmax rgba(0,0,0,.5),0 12px 40px rgba(0,0,0,.35);background:linear-gradient(135deg,var(--p1,var(--card)),var(--p2,var(--card)))!important;-webkit-backdrop-filter:blur(30px) saturate(160%);backdrop-filter:blur(30px) saturate(160%);animation:fpIn .35s cubic-bezier(.34,1.56,.64,1)}
+#fpan[hidden]{display:none}
+@media (min-width:700px){#fpan{width:min(400px,calc(100vw - 40px))}}
+@keyframes fpIn{0%{opacity:0;transform:translate(-50%,-50%) scale(.92)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+#fpan .fh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+#fpan .fh b{font-size:17px}
+#fpan .fcl{padding:6px 14px;border:1px solid var(--line);background:var(--inp);color:var(--ink);border-radius:10px;font-weight:600;font-size:14px;cursor:pointer}
+#fpan .fseg{display:flex;gap:6px;margin-bottom:8px}
+#fpan .fseg button{flex:1;padding:9px 4px;border-radius:12px;border:1px solid var(--line);background:var(--inp);color:var(--ink);font-weight:700;font-size:14px;cursor:pointer;opacity:.75;transition:opacity .15s,transform .15s}
+#fpan .fseg button.on{opacity:1;background:var(--acc);color:#111;border-color:transparent;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+#fpan .fseg button:active{transform:scale(.97)}
+#fpan .ftl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:6px 0}
+#fpan .ftl div{padding:6px 4px;border-radius:10px;border:1px solid var(--line);text-align:center}
+#fpan .ftl b{display:block;font-size:16px}
+#fpan .ftl span{font-size:11px;color:var(--mut)}
+#fpan .fk{text-align:center;margin:4px 0 2px}
+#fpan .fk b{font-size:26px}
+#fpan .fk span{font-size:12px;color:var(--mut)}
+#fpan h4{margin:10px 0 4px;font-size:14px}
+#fpan ul{margin:0;padding-left:18px;font-size:14px;line-height:1.45}
+#fpan .fm{font-size:14px;line-height:1.4}
+#fpan .fm div{padding:5px 0;border-top:1px solid var(--line)}
+#fpan .fm i{font-style:normal;font-weight:600}
+#fpan .fn{font-size:11px;color:var(--mut);margin-top:8px}
+</style>
+<div id="fpan" class="card" hidden></div>
+<script>/* Питание: «Набрать массу» и «Похудение» — калории и БЖУ от веса из Настроек (Men/Woman) */
+(function(){
+var rb=document.getElementById('rbtn'),pan=document.getElementById('pan'),fp=document.getElementById('fpan');if(!rb||!pan||!fp)return;
+var fb=document.createElement('button');fb.id='fbtn';fb.type='button';fb.textContent='Питание';rb.parentNode.insertBefore(fb,rb);
+/* «Отчёт» — кнопкой вверху Настроек */
+var hd=pan.firstElementChild,rs=document.createElement('button');rs.id='repSet';rs.type='button';rs.textContent='Отчёт';
+if(hd&&hd.nextSibling)pan.insertBefore(rs,hd.nextSibling);else pan.appendChild(rs);
+rs.addEventListener('click',function(){pan.hidden=true;fp.hidden=true;if(typeof openRep==='function'){var r=document.getElementById('rpan');r.hidden=true;openRep()}});
+var mode='mass';try{mode=localStorage.getItem('ug_food')||'mass'}catch(e){}
+function g(){try{return (typeof GEN==='function'&&GEN())||'m'}catch(e){return 'm'}}
+function wt(){var w=g()==='w',k=null;try{k=w?S.kgw:S.kg}catch(e){}return {w:w,k:k?+k:null}}
+var MENU={
+ mass:[['Завтрак','овсянка на молоке 100 г сухой + банан + 3 яйца'],['Перекус','творог 5% 200 г + горсть орехов + мёд'],['Обед','рис или гречка 100 г сухой + курица/говядина 200 г + овощи'],['До тренировки','2 ломтя хлеба + арахисовая паста, банан'],['После тренировки','макароны 100 г сухой + рыба/фарш 200 г'],['Перед сном','кефир 500 мл или творог 200 г']],
+ cut:[['Завтрак','омлет из 2 яиц + 2 белков, овощи, 1 ломоть цельнозернового хлеба'],['Перекус','греческий йогурт 150 г + ягоды'],['Обед','гречка 60 г сухой + куриная грудка 180 г + большой салат'],['Перекус','творог 2–5% 150 г или протеиновый коктейль'],['Ужин','рыба или индейка 180 г + тушёные овощи']]};
+var TIP={
+ mass:['Ешь 5–6 раз в день, не пропускай приёмы','Каждый приём — белок: мясо, рыба, яйца, творог','Углеводы — основа: крупы, макароны, хлеб, картофель, фрукты','Взвешивайся раз в неделю утром: плюс 0,25–0,5 кг в неделю — норма','Не растёт вес 2 недели — добавь ещё 200–300 ккал','Сон 7–9 часов, вода — каждый день'],
+ cut:['Минус 0,5–1% веса в неделю — без потери мышц','Белка много: он держит мышцы и сытость','Сладкое, выпечку, сладкие напитки и алкоголь — убрать','Овощи в каждый приём: объём без калорий','Взвешивайся раз в неделю утром, смотри на среднее','Тренировки с весами не бросай — они сохраняют мышцы']};
+function fmt(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
+function draw(){var p=wt(),k=p.k||(p.w?60:80),base=k*(p.w?30:33),kc,pr,fa;
+ if(mode==='mass'){kc=base+(p.w?250:350);pr=k*(p.w?1.8:2);fa=k*1}else{kc=base-(p.w?350:450);pr=k*(p.w?2:2.2);fa=k*.8}
+ var ca=Math.max(0,(kc-pr*4-fa*9)/4),wa=k*.035;
+ fp.innerHTML='<div class="fh"><b>Питание</b><button class="fcl" type="button">Закрыть</button></div>'+
+ '<div class="fseg"><button data-m="mass" class="'+(mode==='mass'?'on':'')+'">Набрать массу</button><button data-m="cut" class="'+(mode==='cut'?'on':'')+'">Похудение</button></div>'+
+ '<div class="fk"><b>'+fmt(kc)+' ккал</b> <span>в день</span></div>'+
+ '<div class="ftl"><div><b>'+Math.round(pr)+'</b><span>белки, г</span></div><div><b>'+Math.round(fa)+'</b><span>жиры, г</span></div><div><b>'+Math.round(ca)+'</b><span>углев., г</span></div><div><b>'+wa.toFixed(1).replace('.',',')+'</b><span>вода, л</span></div></div>'+
+ '<div class="fn" style="margin-top:2px;text-align:center">'+(p.k?'Расчёт для веса '+String(k).replace('.',',')+' кг ('+(p.w?'Woman':'Men')+')':'Вес не указан — расчёт для '+k+' кг. Укажи свой вес в Настройках')+'</div>'+
+ '<h4>Правила</h4><ul>'+TIP[mode].map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul>'+
+ '<h4>Пример дня</h4><div class="fm">'+MENU[mode].map(function(m){return '<div><i>'+m[0]+':</i> '+m[1]+'</div>'}).join('')+'</div>'+
+ '<div class="fn">Ориентировочный расчёт. При болезнях и особых состояниях посоветуйся с врачом.</div>'}
+function open(){pan.hidden=true;var r=document.getElementById('rpan');if(r)r.hidden=true;try{closePg()}catch(e){}fp.hidden=!fp.hidden;if(!fp.hidden)draw()}
+fb.addEventListener('click',open);
+fp.addEventListener('click',function(e){var t=e.target;if(t.closest('.fcl')){fp.hidden=true;return}var b=t.closest('[data-m]');if(b){mode=b.getAttribute('data-m');try{localStorage.setItem('ug_food',mode)}catch(x){}draw()}});
+function out(e){var t=e.target;if(!fp.hidden&&!fp.contains(t)&&!fb.contains(t))fp.hidden=true}
+document.addEventListener('pointerdown',out);document.addEventListener('touchstart',out,{passive:true});
+var gr=document.getElementById('gear');if(gr)gr.addEventListener('click',function(){fp.hidden=true});
+})();</script>
 </body>
 </html>
