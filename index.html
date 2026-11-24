@@ -731,7 +731,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261124103000';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261124110000';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -1136,6 +1136,26 @@ document.addEventListener('animationend',function(e){if(e.animationName==='ugJel
 #fpan .fm div{padding:5px 0;border-top:1px solid var(--line)}
 #fpan .fm i{font-style:normal;font-weight:600}
 #fpan .fn{font-size:11px;color:var(--mut);margin-top:8px}
+/* категории питания (2026-11-24) */
+#fpan .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 4px}
+#fpan .ftile{position:relative;overflow:hidden;isolation:isolate;border:0;border-radius:22px;padding:18px 10px 16px;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#fff;cursor:pointer;text-align:center;font-family:inherit;transition:transform .25s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 28px rgba(0,0,0,.35)}
+#fpan .ftile>*{position:relative;z-index:2}
+#fpan .ftile i{display:block;line-height:0;filter:drop-shadow(0 6px 10px rgba(0,0,0,.3));transition:transform .3s cubic-bezier(.34,1.56,.64,1)}#fpan .ftile:active i,#fpan .ftile.tap i{transform:scale(1.06) rotate(-2deg)}
+#fpan .ftile b{font-size:18px;line-height:1.15;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+#fpan .ftile span{font-size:12px;line-height:1.3;opacity:.92}
+#fpan .ftile::after{content:'';position:absolute;left:-30%;top:-60%;width:160%;height:90%;background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,0));transform:rotate(-8deg);z-index:1;pointer-events:none}
+#fpan .ftile:active,#fpan .ftile.tap{transform:scale(.95)}
+/* оформление: тёмное стекло с цветными пятнами; силуэты из Canva (векторизованы) */
+#fpan .ftile{box-shadow:0 10px 28px rgba(0,0,0,.45)}
+#fpan .ftile::after{display:none}
+#fpan .ftile::before{content:'';position:absolute;inset:8px;border-radius:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:1}
+#fpan .ftile.mass{background:radial-gradient(70% 70% at 15% 15%,#ffa53a 0,transparent 70%),radial-gradient(70% 70% at 90% 95%,#ff2a5a 0,transparent 70%),#140608}
+#fpan .ftile.cut{background:radial-gradient(70% 70% at 15% 15%,#9dff6a 0,transparent 70%),radial-gradient(70% 70% at 90% 95%,#00c2b3 0,transparent 70%),#04140f}
+#fpan .ftile i{color:rgba(255,255,255,.94)}
+#fpan .fh .fbk{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--inp);color:var(--ink);font-size:22px;line-height:1;cursor:pointer;padding:0 0 2px}
+#fpan .fh{gap:8px}#fpan .fhm{flex:1;font-size:17px}
+#fpan .fhm.mass{color:#ff8a3d}#fpan .fhm.cut{color:#3fd18a}
+
 </style>
 <div id="fpan" class="card" hidden></div>
 <script>/* ===== Питание — платный раздел: 1 990 ₽ навсегда (код UP в «Ключах»). Окно покупки — в стиле подписки (#lic), своё: #licF ===== */
@@ -1185,7 +1205,7 @@ function draw(state){if(!ov)mk();cur=state;var h='<div class="lb">';
  else if(state==='blocked')h+='<h3>Питание</h3><p>Доступ по этому ключу заблокирован.</p><div class="lk">'+L.k+'</div><button type="button" class="b3" data-x>Закрыть</button>';
  else{
   if(state==='restore')h+='<h3>Восстановить покупку</h3><p>Введите номер телефона, на который была покупка, — раздел «Питание» откроется здесь сам в течение минуты. На другом телефоне он перестанет работать.</p>';
-  else h+='<h3>Питание</h3><p class="lsub">Калории, белки, жиры и углеводы под вашу цель, правила и меню на день — для набора массы и для похудения.</p><div class="lk">'+L.k+'</div>';
+  else h+='<h3>Питание</h3><p class="lsub">Калории, белки, жиры и углеводы под вашу цель, правила и меню на день — для набора массы и для диеты.</p><div class="lk">'+L.k+'</div>';
   h+='<input type="tel" id="licPh" inputmode="tel" autocomplete="tel" placeholder="Ваш номер телефона" value="'+(L.ph?'+'+L.ph:'')+'"><div class="er" id="licEr"></div>';
   if(state!=='restore'){
    h+='<div class="lpl"><button type="button" data-pl="f" class="on"><span>Доступ навсегда</span><b>'+CFG.price+'</b></button></div>';
@@ -1217,7 +1237,7 @@ setTimeout(function(){check(false)},4000);
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&(L.until||L.prov||L.pv))check(false)});
 })();
 </script>
-<script>/* Питание: «Набрать массу» и «Похудение» — калории и БЖУ от веса из Настроек (Men/Woman) */
+<script>/* Питание: окно с двумя категориями «Набор массы» и «Диета» → расчёт — калории и БЖУ от веса из Настроек (Men/Woman) */
 (function(){
 var rb=document.getElementById('rbtn'),pan=document.getElementById('pan'),fp=document.getElementById('fpan');if(!rb||!pan||!fp)return;
 var fb=document.createElement('button');fb.id='fbtn';fb.type='button';fb.textContent='Питание';rb.parentNode.insertBefore(fb,rb);
@@ -1235,21 +1255,27 @@ var TIP={
  mass:['Ешь 5–6 раз в день, не пропускай приёмы','Каждый приём — белок: мясо, рыба, яйца, творог','Углеводы — основа: крупы, макароны, хлеб, картофель, фрукты','Взвешивайся раз в неделю утром: плюс 0,25–0,5 кг в неделю — норма','Не растёт вес 2 недели — добавь ещё 200–300 ккал','Сон 7–9 часов, вода — каждый день'],
  cut:['Минус 0,5–1% веса в неделю — без потери мышц','Белка много: он держит мышцы и сытость','Сладкое, выпечку, сладкие напитки и алкоголь — убрать','Овощи в каждый приём: объём без калорий','Взвешивайся раз в неделю утром, смотри на среднее','Тренировки с весами не бросай — они сохраняют мышцы']};
 function fmt(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
-function draw(){var p=wt(),k=p.k||(p.w?60:80),base=k*(p.w?30:33),kc,pr,fa;
+var view='menu';
+var IC={mass:'<svg viewBox="0 0 377 1082" height="124" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M60.5 1082.0 L32.5 1082.0 L18.5 1080.0 L9.0 1075.5 L7.0 1072.5 L7.0 1066.5 L13.0 1056.5 L21.0 1032.5 L21.0 1010.5 L28.0 993.5 L31.0 977.5 L33.0 924.5 L30.0 857.5 L32.0 841.5 L38.0 822.5 L45.0 808.5 L68.0 772.5 L75.0 746.5 L84.0 726.5 L85.0 708.5 L83.0 662.5 L87.0 615.5 L105.0 533.5 L116.0 501.5 L117.0 466.5 L123.0 446.5 L132.0 425.5 L127.0 413.5 L127.0 386.5 L124.0 372.5 L86.5 319.0 L80.0 326.5 L74.0 347.5 L67.0 362.5 L54.0 380.5 L52.0 386.5 L56.0 441.5 L48.0 484.5 L46.0 505.5 L46.0 526.5 L52.0 540.5 L64.0 554.5 L73.0 572.5 L79.0 595.5 L79.0 605.5 L73.5 607.0 L71.0 604.5 L66.0 585.5 L62.5 583.0 L57.5 583.0 L53.0 590.5 L54.0 603.5 L57.5 609.0 L64.5 611.0 L68.0 614.5 L75.0 622.5 L75.0 625.5 L71.5 628.0 L62.5 628.0 L49.5 625.0 L37.5 620.0 L33.0 615.5 L21.0 589.5 L23.0 554.5 L19.0 540.5 L18.0 517.5 L0.0 445.5 L0.0 412.5 L2.0 405.5 L1.0 383.5 L9.0 361.5 L10.0 346.5 L16.0 322.5 L16.0 306.5 L19.0 290.5 L33.0 261.5 L31.0 249.5 L32.0 228.5 L40.0 207.5 L44.0 201.5 L58.5 188.0 L69.5 183.0 L81.5 182.0 L88.5 179.0 L103.5 167.0 L145.5 142.0 L149.0 137.5 L153.0 116.5 L152.0 110.5 L144.0 93.5 L132.0 77.5 L128.0 64.5 L129.0 47.5 L137.0 26.5 L151.5 13.0 L168.5 4.0 L181.5 0.0 L205.5 0.0 L212.5 3.0 L225.5 2.0 L236.5 7.0 L245.0 19.5 L245.0 31.5 L240.0 40.5 L240.0 45.5 L243.0 51.5 L242.0 66.5 L249.0 78.5 L249.0 82.5 L244.0 90.5 L243.0 102.5 L241.0 106.5 L241.0 121.5 L236.5 126.0 L216.5 126.0 L214.0 128.5 L212.0 137.5 L213.0 149.5 L219.5 158.0 L260.5 186.0 L281.5 191.0 L293.5 198.0 L302.0 206.5 L309.0 219.5 L315.0 246.5 L315.0 260.5 L307.0 285.5 L307.0 293.5 L315.0 317.5 L320.0 364.5 L323.0 375.5 L342.0 415.5 L347.0 467.5 L353.0 505.5 L361.0 529.5 L363.0 544.5 L377.0 582.5 L377.0 590.5 L373.0 601.5 L372.0 611.5 L353.5 625.0 L346.5 625.0 L340.5 622.0 L337.0 617.5 L338.0 613.5 L343.5 609.0 L351.5 608.0 L355.0 604.5 L357.0 597.5 L355.0 590.5 L350.5 588.0 L345.5 602.0 L342.5 604.0 L339.0 599.5 L340.0 575.5 L337.0 565.5 L337.0 558.5 L341.0 546.5 L341.0 540.5 L323.0 504.5 L295.0 460.5 L287.0 444.5 L283.0 429.5 L279.5 427.0 L276.0 431.5 L276.0 434.5 L283.0 441.5 L290.0 468.5 L305.0 506.5 L315.0 545.5 L323.0 592.5 L323.0 630.5 L318.0 672.5 L311.0 697.5 L301.0 715.5 L305.0 750.5 L301.0 763.5 L298.0 788.5 L300.0 810.5 L300.0 845.5 L286.0 932.5 L284.0 962.5 L285.0 982.5 L290.0 1000.5 L311.5 1020.0 L343.5 1041.0 L358.5 1043.0 L367.5 1047.0 L376.0 1053.5 L376.0 1056.5 L364.5 1062.0 L323.5 1061.0 L294.5 1051.0 L264.5 1053.0 L247.5 1052.0 L244.5 1051.0 L239.0 1044.5 L239.0 1031.5 L246.0 1004.5 L247.0 957.5 L241.0 902.5 L228.0 865.5 L227.0 837.5 L236.0 791.5 L242.0 772.5 L242.0 764.5 L239.0 754.5 L235.0 716.5 L229.0 686.5 L211.0 634.5 L205.0 597.5 L202.5 594.0 L200.5 594.0 L197.0 598.5 L188.0 627.5 L169.0 667.5 L166.0 692.5 L160.0 716.5 L153.0 730.5 L138.0 750.5 L135.0 764.5 L130.0 776.5 L110.0 811.5 L105.0 862.5 L98.0 881.5 L83.0 909.5 L66.0 959.5 L61.0 981.5 L64.0 1011.5 L60.0 1022.5 L60.0 1032.5 L62.0 1045.5 L69.0 1061.5 L69.0 1072.5 L67.0 1077.5 L60.5 1082.0Z"/></svg>',
+ cut:'<svg viewBox="0 0 333 1002" height="124" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M121.5 1002.0 L70.5 999.0 L40.5 986.0 L35.0 976.5 L36.0 964.5 L45.0 935.5 L46.0 900.5 L29.0 815.5 L28.0 780.5 L36.0 750.5 L49.0 724.5 L60.0 708.5 L66.0 692.5 L68.0 673.5 L64.0 623.5 L66.0 560.5 L60.0 546.5 L54.0 524.5 L53.0 485.5 L35.0 454.5 L16.0 415.5 L10.0 397.5 L4.0 361.5 L0.0 350.5 L0.0 340.5 L4.0 324.5 L6.0 291.5 L12.0 263.5 L26.0 221.5 L37.0 198.5 L52.0 178.5 L65.5 167.0 L84.5 154.0 L121.5 135.0 L127.5 131.0 L136.0 120.5 L138.0 111.5 L125.0 57.5 L126.0 40.5 L135.0 20.5 L146.5 10.0 L164.5 1.0 L200.5 0.0 L214.5 3.0 L222.5 7.0 L231.5 8.0 L237.5 11.0 L243.0 16.5 L245.0 21.5 L244.0 28.5 L239.0 36.5 L239.0 46.5 L242.0 58.5 L239.0 76.5 L247.0 89.5 L247.0 95.5 L240.5 100.0 L237.0 105.5 L232.0 133.5 L225.5 138.0 L218.5 140.0 L217.0 143.5 L222.5 150.0 L248.5 162.0 L261.5 171.0 L276.0 191.5 L285.0 221.5 L288.0 259.5 L294.0 278.5 L302.0 315.5 L318.0 351.5 L326.0 391.5 L332.0 454.5 L333.0 521.5 L324.0 542.5 L317.5 549.0 L299.5 557.0 L295.0 562.5 L293.0 616.5 L289.0 643.5 L282.0 669.5 L281.0 689.5 L273.0 716.5 L267.0 728.5 L265.0 754.5 L259.0 788.5 L243.0 839.5 L230.0 890.5 L231.0 911.5 L238.5 924.0 L277.5 953.0 L309.5 965.0 L313.0 971.5 L305.5 978.0 L265.5 978.0 L229.5 970.0 L186.5 972.0 L176.5 969.0 L172.0 964.5 L171.0 949.5 L178.0 928.5 L183.0 901.5 L182.0 837.5 L181.0 827.5 L173.0 799.5 L172.0 777.5 L177.0 750.5 L196.0 701.5 L183.0 653.5 L183.0 646.5 L181.5 646.0 L172.0 662.5 L162.0 686.5 L148.0 705.5 L139.0 727.5 L127.0 746.5 L123.0 764.5 L120.0 793.5 L115.0 810.5 L104.0 836.5 L96.0 870.5 L93.0 888.5 L93.0 917.5 L98.0 939.5 L107.0 954.5 L130.5 977.0 L144.5 986.0 L147.0 989.5 L147.0 995.5 L141.5 1000.0 L128.5 1000.0 L121.5 1002.0ZM76.0 370.5 L80.0 365.5 L87.0 345.5 L86.0 336.5 L79.5 324.0 L72.0 329.5 L65.0 342.5 L65.0 349.5 L69.0 363.5 L71.0 367.5 L74.5 371.0 L76.0 370.5ZM293.0 495.5 L303.0 479.5 L304.0 467.5 L293.0 445.5 L292.0 439.5 L289.5 438.0 L283.0 444.5 L275.0 459.5 L282.0 471.5 L286.0 493.5 L288.5 496.0 L293.0 495.5ZM302.0 541.5 L306.0 538.5 L310.0 531.5 L311.0 520.5 L308.5 517.0 L303.0 518.5 L295.0 536.5 L295.0 539.5 L297.5 542.0 L302.0 541.5Z"/></svg>'};
+var NM={mass:'Набор массы',cut:'Диета'},SB={mass:'Калории и белок для роста мышц',cut:'Дефицит калорий без потери мышц'};
+function menu(){fp.innerHTML='<div class="fh"><b>Питание</b><button class="fcl" type="button">Закрыть</button></div><div class="fgrid">'+
+ ['mass','cut'].map(function(m){return '<button type="button" class="ftile '+m+'" data-go="'+m+'"><i>'+IC[m]+'</i><b>'+NM[m]+'</b><span>'+SB[m]+'</span></button>'}).join('')+'</div>'}
+function draw(){if(view==='menu'){menu();return}
+ var p=wt(),k=p.k||(p.w?60:80),base=k*(p.w?30:33),kc,pr,fa;
  if(mode==='mass'){kc=base+(p.w?250:350);pr=k*(p.w?1.8:2);fa=k*1}else{kc=base-(p.w?350:450);pr=k*(p.w?2:2.2);fa=k*.8}
  var ca=Math.max(0,(kc-pr*4-fa*9)/4),wa=k*.035;
- fp.innerHTML='<div class="fh"><b>Питание</b><button class="fcl" type="button">Закрыть</button></div>'+
- '<div class="fseg"><button data-m="mass" class="'+(mode==='mass'?'on':'')+'">Набрать массу</button><button data-m="cut" class="'+(mode==='cut'?'on':'')+'">Похудение</button></div>'+
+ fp.innerHTML='<div class="fh"><button class="fbk" type="button" aria-label="Назад">‹</button><b class="fhm '+mode+'">'+NM[mode]+'</b><button class="fcl" type="button">Закрыть</button></div>'+
  '<div class="fk"><b>'+fmt(kc)+' ккал</b> <span>в день</span></div>'+
  '<div class="ftl"><div><b>'+Math.round(pr)+'</b><span>белки, г</span></div><div><b>'+Math.round(fa)+'</b><span>жиры, г</span></div><div><b>'+Math.round(ca)+'</b><span>углев., г</span></div><div><b>'+wa.toFixed(1).replace('.',',')+'</b><span>вода, л</span></div></div>'+
  '<div class="fn" style="margin-top:2px;text-align:center">'+(p.k?'Расчёт для веса '+String(k).replace('.',',')+' кг ('+(p.w?'Woman':'Men')+')':'Вес не указан — расчёт для '+k+' кг. Укажи свой вес в Настройках')+'</div>'+
  '<h4>Правила</h4><ul>'+TIP[mode].map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul>'+
  '<h4>Пример дня</h4><div class="fm">'+MENU[mode].map(function(m){return '<div><i>'+m[0]+':</i> '+m[1]+'</div>'}).join('')+'</div>'+
  '<div class="fn">Ориентировочный расчёт. При болезнях и особых состояниях посоветуйся с врачом.</div>'}
-function open(){pan.hidden=true;var r=document.getElementById('rpan');if(r)r.hidden=true;try{closePg()}catch(e){}if(fp.hidden&&window.ugFoodPaid&&!window.ugFoodPaid()){window.ugFoodBuy();return}fp.hidden=!fp.hidden;if(!fp.hidden)draw()}
-window.addEventListener('ugfoodpaid',function(){fp.hidden=false;draw()});
+function open(){pan.hidden=true;var r=document.getElementById('rpan');if(r)r.hidden=true;try{closePg()}catch(e){}if(fp.hidden&&window.ugFoodPaid&&!window.ugFoodPaid()){window.ugFoodBuy();return}fp.hidden=!fp.hidden;if(!fp.hidden){view='menu';draw()}}
+window.addEventListener('ugfoodpaid',function(){fp.hidden=false;view='menu';draw()});
 fb.addEventListener('click',open);
-fp.addEventListener('click',function(e){var t=e.target;if(t.closest('.fcl')){fp.hidden=true;return}var b=t.closest('[data-m]');if(b){mode=b.getAttribute('data-m');try{localStorage.setItem('ug_food',mode)}catch(x){}draw()}});
+fp.addEventListener('click',function(e){var t=e.target;if(t.closest('.fcl')){fp.hidden=true;return}if(t.closest('.fbk')){view='menu';draw();return}var b=t.closest('[data-go]');if(b){mode=b.getAttribute('data-go');view='det';try{localStorage.setItem('ug_food',mode)}catch(x){}b.classList.add('tap');setTimeout(draw,160)}});
 function out(e){var t=e.target;if(!fp.hidden&&!fp.contains(t)&&!fb.contains(t))fp.hidden=true}
 document.addEventListener('pointerdown',out);document.addEventListener('touchstart',out,{passive:true});
 var gr=document.getElementById('gear');if(gr)gr.addEventListener('click',function(){fp.hidden=true});
