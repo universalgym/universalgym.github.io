@@ -1,7 +1,7 @@
 /* Сервис-воркер: приложение открывается сразу из памяти телефона, даже при плохом интернете.
    Новая версия скачивается в фоне; проверка version.json всегда идёт через сеть. */
-var C='ug-v3';   /* sw 2026-11-19: другие страницы (оферта) — напрямую из сети, приложение не трогают */
-var SHELL=['./','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png','oferta.html'];
+var C='ug-v3';   /* sw 2026-11-24: + info.html, privacy.html; 2026-11-19: другие страницы (оферта) — напрямую из сети, приложение не трогают */
+var SHELL=['./','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png','oferta.html','info.html','privacy.html'];
 self.addEventListener('install',function(e){self.skipWaiting();e.waitUntil(caches.open(C).then(function(c){return c.addAll(SHELL).catch(function(){})}))});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(ks){return Promise.all(ks.filter(function(k){return k!==C}).map(function(k){return caches.delete(k)}))}).then(function(){return self.clients.claim()}))});
 function put(req,res){if(res&&res.ok&&res.type==='basic'){var cp=res.clone();caches.open(C).then(function(c){c.put(req,cp)})}return res}

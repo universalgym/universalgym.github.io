@@ -731,7 +731,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261124101500';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261124103000';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -1253,6 +1253,27 @@ fp.addEventListener('click',function(e){var t=e.target;if(t.closest('.fcl')){fp.
 function out(e){var t=e.target;if(!fp.hidden&&!fp.contains(t)&&!fb.contains(t))fp.hidden=true}
 document.addEventListener('pointerdown',out);document.addEventListener('touchstart',out,{passive:true});
 var gr=document.getElementById('gear');if(gr)gr.addEventListener('click',function(){fp.hidden=true});
+})();</script>
+<style id="ugDocsCss">
+/* строка документов внизу главного экрана (для Robokassa, 24.11.2026) */
+#ugDocs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 12px;margin:18px 12px calc(14px + env(safe-area-inset-bottom,0px));font-size:12px;opacity:.75}
+#ugDocs a{color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+</style>
+<script>/* документы (О сервисе, Оферта, Политика, Контакты) — окном поверх приложения, без перехода со страницы */
+(function(){
+var col=document.getElementById('col')||document.getElementById('scr');if(!col)return;
+var f=document.createElement('nav');f.id='ugDocs';
+f.innerHTML='<a href="info.html">О сервисе</a><a href="oferta.html">Оферта</a><a href="privacy.html">Политика</a><a href="info.html#contacts">Контакты</a>';
+col.appendChild(f);
+function open(u){var o=document.getElementById('ugOf');if(!o){o=document.createElement('div');o.id='ugOf';document.body.appendChild(o)}
+ o.style.cssText='position:fixed;inset:0;z-index:2147483001;background:#f6f7f5;color:#16191d;overflow:auto;-webkit-overflow-scrolling:touch;padding:max(14px,env(safe-area-inset-top)) 16px 90px;font:15px/1.5 -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+ o.innerHTML='<div style="opacity:.6">…</div>';o.hidden=false;o.scrollTop=0;var p=u.split('#'),cl='<button type="button" id="ugOfX" style="position:fixed;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom));padding:12px 34px;border:0;border-radius:14px;background:#16191d;color:#fff;font-size:15px">Закрыть</button>';
+ function fin(h){o.innerHTML=h+cl;document.getElementById('ugOfX').onclick=function(){o.hidden=true};if(p[1]){var t=o.querySelector('#'+p[1]);if(t)setTimeout(function(){t.scrollIntoView()},30)}}
+ fetch(p[0],{cache:'no-cache'}).then(function(r){return r.text()}).then(function(tx){var m=tx.match(/<main>([\s\S]*)<\/main>/);fin('<style>#ugOf h1{font-size:20px;line-height:1.3;margin:0 0 4px}#ugOf h2{font-size:16px;margin:18px 0 6px}#ugOf p,#ugOf li{margin:0 0 8px}#ugOf ol,#ugOf ul{padding-left:22px}#ugOf .mut{color:#6a7078;font-size:14px}#ugOf table{border-collapse:collapse;width:100%}#ugOf td{border:1px solid #dfe2de;padding:7px 9px}#ugOf a{color:#1f7a4d}</style>'+(m?m[1]:tx))}).catch(function(){fin('<p>Нет связи</p>')})}
+window.ugDoc=open;
+f.addEventListener('click',function(e){var a=e.target.closest('a');if(!a)return;e.preventDefault();open(a.getAttribute('href'))});
+/* ссылки между документами внутри окна */
+document.addEventListener('click',function(e){var o=document.getElementById('ugOf');if(!o||o.hidden||!o.contains(e.target))return;var a=e.target.closest('a');if(!a)return;var h=a.getAttribute('href')||'';if(/^(info|oferta|privacy)\.html/.test(h)){e.preventDefault();open(h)}},true);
 })();</script>
 </body>
 </html>
