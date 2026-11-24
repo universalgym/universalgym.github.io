@@ -731,7 +731,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261124095500';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261124101500';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -1106,7 +1106,7 @@ document.addEventListener('click',function(e){if(pass)return;var b=e.target.clos
   if(!document.body.contains(b)){var n=[].filter.call(document.querySelectorAll(SEL),function(q){return q.textContent===tx})[0];if(n){n.style.animationDelay='-'+D+'ms';n.classList.add('jelly');setTimeout(function(){n.style.animationDelay=''},900)}}},D)},true);
 document.addEventListener('animationend',function(e){if(e.animationName==='ugJelly')e.target.classList.remove('jelly')})})();</script>
 <style id="ugFood">
-/* Питание (2026-11-24): кнопка «Питание» вместо «Отчёт» в шапке; «Отчёт» — в Настройках */
+/* Питание (2026-11-24): кнопка «Питание» вместо «Отчёт» в шапке; «Отчёт» — в Настройках. Раздел платный: 1 990 ₽ навсегда (UP) */
 #rbtn{display:none!important}
 #fbtn{height:34px;padding:0 14px;border-radius:10px;border:1px solid var(--gb,var(--line));background:var(--seg,var(--card));-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;box-shadow:inset 0 1px 0 var(--hl,transparent)}
 #fbtn:active{transform:scale(.96)}
@@ -1138,6 +1138,85 @@ document.addEventListener('animationend',function(e){if(e.animationName==='ugJel
 #fpan .fn{font-size:11px;color:var(--mut);margin-top:8px}
 </style>
 <div id="fpan" class="card" hidden></div>
+<script>/* ===== Питание — платный раздел: 1 990 ₽ навсегда (код UP в «Ключах»). Окно покупки — в стиле подписки (#lic), своё: #licF ===== */
+(function(){
+var CFG={price:'1 990 ₽',ym:'4100119689616819',provMs:10*60*60*1000,req:'https://ntfy.sh/ugq-af43161359a999ea',list:'https://chamsutdinov-bot.github.io/klyuchi/list/',api:'https://api.github.com/repos/chamsutdinov-bot/klyuchi/contents/list/',NT:'https://ntfy.sh/'};
+var LK='up_lic3',A='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+var L=ld(LK);
+if(!L||!L.k){var g=ld('ug_lic3'),body=null;
+ if(g&&g.k)body=g.k.replace(/^U[GW]-/,'');
+ else{var r=new Uint8Array(11);crypto.getRandomValues(r);var b='';for(var i=0;i<11;i++)b+=A[r[i]&31];var s=0;for(i=0;i<11;i++)s+=A.indexOf(b[i])*(i+1);b+=A[s%32];body=b.slice(0,4)+'-'+b.slice(4,8)+'-'+b.slice(8)}
+ L={k:'UP-'+body,ok:false}}
+if(!L.ph){var g2=ld('ug_lic3')||ld('uw_lic3');if(g2&&g2.ph)L.ph=g2.ph}
+function save(){try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}}save();
+function active(){if(L.sup)return false;if(L.blk)return false;if(L.until&&L.until>Date.now())return true;return !!(L.prov&&L.prov>Date.now()&&!L.until)}
+window.ugFoodPaid=active;
+function hex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')}
+function sha(t){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)).then(hex)}
+function viaApi(p){return fetch(CFG.api+p+'.json',{cache:'no-cache'}).then(function(r){if(r.status===404)return {};if(!r.ok)throw 0;return r.json().then(function(j){return JSON.parse(atob(j.content.replace(/\n/g,'')))})})}
+function viaPages(p){return fetch(CFG.list+p+'.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(r.status===404)return {};if(!r.ok)throw 0;return r.json()})}
+function get(p){return viaApi(p).catch(function(){return viaPages(p)})}
+function byKey(){return sha('UGK|UP|'+L.k.slice(3).replace(/-/g,'')).then(function(h){var id=h.slice(2,18);return get('UP/'+h.slice(0,2)).then(function(d){
+ if((d.b||[]).indexOf(id)>=0)return {s:'b'};if((d.m||[]).indexOf(id)>=0&&!(d.a&&d.a[id]))return {s:'m'};var u=d.a&&d.a[id];return u?{s:'a',u:+u}:{s:''}})})}
+function byPhone(){if(!L.ph)return Promise.resolve(null);return sha('UGP|UP|'+L.ph).then(function(h){var id=h.slice(2,18);return get('UP/p/'+h.slice(0,2)).then(function(d){var u=d&&d[id];return u&&+u>Date.now()?{s:'a',u:+u}:null})}).catch(function(){return null})}
+function ctopic(){return sha('UGC|UP|'+L.ph).then(function(h){return 'ugc-'+h.slice(0,24)})}
+function claimPub(){if(!L.ph||!L.ct)return;var m=JSON.stringify({k:L.k,t:L.ct});ctopic().then(function(tp){return fetch(CFG.NT+tp,{method:'POST',body:m})}).catch(function(){})}
+function claimChk(){if(!L.ph||!L.ct||L.sup)return;ctopic().then(function(tp){return fetch(CFG.NT+tp+'/json?poll=1&since=12h',{cache:'no-store'})}).then(function(r){return r.ok?r.text():''}).then(function(tx){var mx=0;(tx||'').split('\n').forEach(function(l){try{var e=JSON.parse(l),c=JSON.parse(e.message||'{}');if(c.k&&c.k!==L.k&&+c.t>mx)mx=+c.t}catch(x){}});if(mx>L.ct){L.sup=mx;L.until=0;save()}}).catch(function(){})}
+var busy=false;
+function check(restore){if(busy||navigator.onLine===false)return Promise.resolve(active());busy=true;
+ return byKey().then(function(r){if(r.s==='b'){L.blk=1;L.until=0;save();return}L.blk=0;
+   if(r.s==='a'&&r.u>Date.now()){var nw=!L.ct;L.until=r.u;L.ok=true;L.sup=0;if(nw){L.ct=Date.now();save();claimPub()}else save();return}
+   if(restore)return byPhone().then(function(p){if(p){/* восстановление: этот телефон становится основным */L.sup=0;L.until=p.u;L.ok=true;L.ct=Date.now();save();claimPub()}})})
+ .catch(function(){}).then(function(){busy=false;if(L.until&&L.ct)claimChk();return active()})}
+
+/* стиль: копия стиля окна подписки (#lic → #licF) */
+function css(){if(document.getElementById('licFCss'))return;var src=null;[].some.call(document.querySelectorAll('style'),function(s){if(s.textContent.indexOf('#lic{position:fixed')>=0){src=s;return true}});
+ var st=document.createElement('style');st.id='licFCss';st.textContent=(src?src.textContent.replace(/#lic\b/g,'#licF'):'')+'#licF .lpl{grid-template-columns:1fr!important}#licF .lsub{font-size:13px;margin:-2px 0 10px}';document.head.appendChild(st)}
+var ov=null,cur='',pt=null,poll=null;
+function mk(){css();ov=document.createElement('div');ov.id='licF';ov.hidden=true;document.body.appendChild(ov);
+ ['touchstart','pointerdown','click','keydown'].forEach(function(ev){ov.addEventListener(ev,function(e){e.stopPropagation()},false)});
+ ov.addEventListener('click',function(e){if(e.target===ov)hide()})}
+function hide(){if(ov)ov.hidden=true;cur='';clearInterval(poll)}
+function payUrl(){return 'https://yoomoney.ru/quickpay/confirm?receiver='+CFG.ym+'&quickpay-form=button&paymentType=AC&sum='+CFG.price.replace(/\D/g,'')+'&label='+encodeURIComponent(L.k)+'&targets='+encodeURIComponent('Universal Gym Питание '+L.k)+'&successURL='+encodeURIComponent(location.origin+location.pathname)}
+function normPh(v){var d=String(v||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10&&d[0]==='9')d='7'+d;return (d.length<10||d.length>15)?'':d}
+function draw(state){if(!ov)mk();cur=state;var h='<div class="lb">';
+ if(state==='done')h+='<h3>Готово! Раздел «Питание» открыт</h3><div class="ls ok">✓</div>';
+ else if(state==='blocked')h+='<h3>Питание</h3><p>Доступ по этому ключу заблокирован.</p><div class="lk">'+L.k+'</div><button type="button" class="b3" data-x>Закрыть</button>';
+ else{
+  if(state==='restore')h+='<h3>Восстановить покупку</h3><p>Введите номер телефона, на который была покупка, — раздел «Питание» откроется здесь сам в течение минуты. На другом телефоне он перестанет работать.</p>';
+  else h+='<h3>Питание</h3><p class="lsub">Калории, белки, жиры и углеводы под вашу цель, правила и меню на день — для набора массы и для похудения.</p><div class="lk">'+L.k+'</div>';
+  h+='<input type="tel" id="licPh" inputmode="tel" autocomplete="tel" placeholder="Ваш номер телефона" value="'+(L.ph?'+'+L.ph:'')+'"><div class="er" id="licEr"></div>';
+  if(state!=='restore'){
+   h+='<div class="lpl"><button type="button" data-pl="f" class="on"><span>Доступ навсегда</span><b>'+CFG.price+'</b></button></div>';
+   h+='<a class="lbt b1" id="licPay" href="'+payUrl()+'" target="_blank" rel="noopener">Оплатить <span id="licAm">'+CFG.price+'</span></a><div class="lvpn">Перед оплатой отключите VPN · <a href="oferta.html" id="licOf">Оферта</a></div>';
+   h+='<button type="button" class="b3" id="licRsB">Восстановить покупку</button>'}
+  else h+='<div class="ls"><span class="sp"></span><span>Проверяем покупку…</span></div>';
+  h+='<button type="button" class="b3" data-x>Закрыть</button>'}
+ ov.innerHTML=h+'</div>';ov.hidden=false;
+ var q=function(s){return ov.querySelector(s)},ph=q('#licPh'),er=q('#licEr');
+ [].forEach.call(ov.querySelectorAll('[data-x]'),function(b){b.onclick=hide});
+ function bad(){var v=(ph.value||'').replace(/\D/g,'');er.textContent=v?'Введите номер телефона полностью':'Введите номер телефона';ph.classList.add('bad');ph.focus()}
+ if(ph)ph.oninput=function(){er.textContent='';ph.classList.remove('bad');clearTimeout(pt);pt=setTimeout(function(){var d=normPh(ph.value);if(d&&d!==L.ph){L.ph=d;save();if(cur==='restore')check(true).then(after)}},700)};
+ var pay=q('#licPay');if(pay)pay.onclick=function(e){var d=normPh(ph.value);if(!d){e.preventDefault();bad();return}if(d!==L.ph){L.ph=d;save()}
+  var body=JSON.stringify({ph:L.ph,k:L.k,app:'UP',pl:'f',t:Date.now(),st:'wait',f:''});
+  try{if(!(navigator.sendBeacon&&navigator.sendBeacon(CFG.req,body)))fetch(CFG.req,{method:'POST',body:body,keepalive:true}).catch(function(){})}catch(x){}
+  var TG=ld('ug_tg');if(TG&&TG.t&&TG.c){try{var fd=new FormData();fd.append('chat_id',TG.c);fd.append('text','Universal Gym · Питание — покупка навсегда\n📱 +'+L.ph+'\n🔑 '+L.k+'\n📅 навсегда · '+CFG.price);fetch('https://api.telegram.org/bot'+TG.t+'/sendMessage',{method:'POST',body:fd,keepalive:true}).catch(function(){})}catch(x){}}
+  if(!L.pv&&!active()){L.prov=Date.now()+CFG.provMs;L.pv=1;save()}
+  startPoll();setTimeout(hide,400)};
+ var rs=q('#licRsB');if(rs)rs.onclick=function(){draw('restore');if(L.ph)check(true).then(after)};
+ var of=q('#licOf');if(of)of.onclick=function(e){e.preventDefault();/* то же окно оферты, что и у подписки */
+  var o=document.getElementById('ugOf');if(!o){o=document.createElement('div');o.id='ugOf';o.style.cssText='position:fixed;inset:0;z-index:2147483001;background:#f6f7f5;color:#16191d;overflow:auto;-webkit-overflow-scrolling:touch;padding:max(14px,env(safe-area-inset-top)) 16px 90px;font:15px/1.5 -apple-system,BlinkMacSystemFont,Arial,sans-serif';document.body.appendChild(o)}
+  o.style.zIndex='2147483001';o.innerHTML='<div style="opacity:.6">…</div>';o.hidden=false;var cl='<button type="button" id="ugOfX" style="position:fixed;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom));padding:12px 34px;border:0;border-radius:14px;background:#16191d;color:#fff;font-size:15px">Закрыть</button>';
+  fetch('oferta.html',{cache:'no-store'}).then(function(r){return r.text()}).then(function(tx){var m=tx.match(/<main>([\s\S]*)<\/main>/);o.innerHTML='<style>#ugOf h1{font-size:20px;line-height:1.3;margin:0 0 4px}#ugOf h2{font-size:16px;margin:18px 0 6px}#ugOf p{margin:0 0 8px}#ugOf table{border-collapse:collapse;width:100%}#ugOf td{border:1px solid #dfe2de;padding:7px 9px}#ugOf a{color:#1f7a4d}</style>'+(m?m[1]:tx)+cl;document.getElementById('ugOfX').onclick=function(){o.hidden=true}}).catch(function(){o.innerHTML='<p>Нет связи</p>'+cl;document.getElementById('ugOfX').onclick=function(){o.hidden=true}})}}
+function after(ok){if(cur!=='restore'&&cur!=='wait')return;if(L.blk){draw('blocked');return}if(ok&&L.until){draw('done');setTimeout(function(){hide();window.dispatchEvent(new Event('ugfoodpaid'))},1200)}}
+function startPoll(){clearInterval(poll);var n=0;poll=setInterval(function(){if(++n>90||(L.until&&L.until>Date.now())){clearInterval(poll);return}if(document.visibilityState==='visible')check(false).then(function(ok){if(ok&&L.until&&cur){draw('done');setTimeout(hide,1200)}})},20000)}
+window.ugFoodBuy=function(){if(L.blk){draw('blocked');return}draw('wait');check(false).then(function(ok){if(ok&&L.until&&cur==='wait'){hide();window.dispatchEvent(new Event('ugfoodpaid'))}})};
+/* при запуске и возврате в приложение — тихая проверка */
+setTimeout(function(){check(false)},4000);
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'&&(L.until||L.prov||L.pv))check(false)});
+})();
+</script>
 <script>/* Питание: «Набрать массу» и «Похудение» — калории и БЖУ от веса из Настроек (Men/Woman) */
 (function(){
 var rb=document.getElementById('rbtn'),pan=document.getElementById('pan'),fp=document.getElementById('fpan');if(!rb||!pan||!fp)return;
@@ -1167,7 +1246,8 @@ function draw(){var p=wt(),k=p.k||(p.w?60:80),base=k*(p.w?30:33),kc,pr,fa;
  '<h4>Правила</h4><ul>'+TIP[mode].map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul>'+
  '<h4>Пример дня</h4><div class="fm">'+MENU[mode].map(function(m){return '<div><i>'+m[0]+':</i> '+m[1]+'</div>'}).join('')+'</div>'+
  '<div class="fn">Ориентировочный расчёт. При болезнях и особых состояниях посоветуйся с врачом.</div>'}
-function open(){pan.hidden=true;var r=document.getElementById('rpan');if(r)r.hidden=true;try{closePg()}catch(e){}fp.hidden=!fp.hidden;if(!fp.hidden)draw()}
+function open(){pan.hidden=true;var r=document.getElementById('rpan');if(r)r.hidden=true;try{closePg()}catch(e){}if(fp.hidden&&window.ugFoodPaid&&!window.ugFoodPaid()){window.ugFoodBuy();return}fp.hidden=!fp.hidden;if(!fp.hidden)draw()}
+window.addEventListener('ugfoodpaid',function(){fp.hidden=false;draw()});
 fb.addEventListener('click',open);
 fp.addEventListener('click',function(e){var t=e.target;if(t.closest('.fcl')){fp.hidden=true;return}var b=t.closest('[data-m]');if(b){mode=b.getAttribute('data-m');try{localStorage.setItem('ug_food',mode)}catch(x){}draw()}});
 function out(e){var t=e.target;if(!fp.hidden&&!fp.contains(t)&&!fb.contains(t))fp.hidden=true}
