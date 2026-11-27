@@ -719,7 +719,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261128020000';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261128014000';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});setInterval(function(){if(document.hidden)return;var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;chk()},30000);/* проверка обновления каждые 30 сек (не во время тренировки и не пока человек что-то вписывает) */
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -1164,7 +1164,7 @@ if(!L||!L.k){var g=ld('ug_lic3'),body=null;
  L={k:'UP-'+body,ok:false}}
 if(!L.ph){var g2=ld('ug_lic3')||ld('uw_lic3');if(g2&&g2.ph)L.ph=g2.ph}
 function save(){try{localStorage.setItem(LK,JSON.stringify(L))}catch(e){}}save();
-function active(){if(L.sup)return false;if(L.blk)return false;if(L.until&&L.until>Date.now())return true;return !!(L.prov&&L.prov>Date.now()&&!L.until)}
+function active(){if(L.sup)return false;if(L.blk)return false;if(L.until&&L.until>Date.now())return true;return false}
 window.ugFoodPaid=active;
 function hex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2)}).join('')}
 function sha(t){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)).then(hex)}
@@ -1215,7 +1215,7 @@ function draw(state){if(!ov)mk();cur=state;var h='<div class="lb">';
   var body=JSON.stringify({ph:L.ph,k:L.k,app:'UP',pl:'f',t:Date.now(),st:'wait',f:'',inv:window.ugInv(pay)});
   try{if(!(navigator.sendBeacon&&navigator.sendBeacon(CFG.req,body)))fetch(CFG.req,{method:'POST',body:body,keepalive:true}).catch(function(){})}catch(x){}
   var TG=ld('ug_tg');if(TG&&TG.t&&TG.c){try{var fd=new FormData();fd.append('chat_id',TG.c);fd.append('text','Universal Gym · Питание — покупка навсегда\n📱 +'+L.ph+'\n🔑 '+L.k+'\n📅 навсегда · '+CFG.price);fetch('https://api.telegram.org/bot'+TG.t+'/sendMessage',{method:'POST',body:fd,keepalive:true}).catch(function(){})}catch(x){}}
-  if(!L.pv&&!active()){L.prov=Date.now()+CFG.provMs;L.pv=1;save()}
+  /* без временного доступа (28.11.2026): «Питание» открывается только после оплаты */L.pv=1;save();
   startPoll();setTimeout(hide,400)};
  var rs=q('#licRsB');if(rs)rs.onclick=function(){draw('restore');if(L.ph)check(true).then(after)};
  var of=q('#licOf');if(of)of.onclick=function(e){e.preventDefault();/* то же окно оферты, что и у подписки */
