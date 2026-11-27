@@ -719,7 +719,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261128001200';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261128020000';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});setInterval(function(){if(document.hidden)return;var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;chk()},30000);/* проверка обновления каждые 30 сек (не во время тренировки и не пока человек что-то вписывает) */
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -840,6 +840,11 @@ size();go();setTimeout(function(){if(!LED)ledges()},800);
 #pan .clrRow{display:flex;gap:8px;margin-top:6px!important}
 #pan .clrRow button{flex:1;width:auto!important}
 </style>
+<script>/* Robokassa (28.11.2026): подписанная ссылка — сумма, номер платежа (InvId), позиция чека. Оплату проверяет робот в Klyuchi (паролем №2) и сам активирует ключ */
+function ugMd5(s){function a(x,y){var l=(x&65535)+(y&65535);return(((x>>16)+(y>>16)+(l>>16))<<16)|(l&65535)}function r(n,c){return(n<<c)|(n>>>(32-c))}function q(t,x,y,z,s,k){return a(r(a(a(x,t),a(z,k)),s),y)}function f(x,y,z,w,s,t,k){return q((y&z)|(~y&w),x,y,s,t,k)}function g(x,y,z,w,s,t,k){return q((y&w)|(z&~w),x,y,s,t,k)}function h(x,y,z,w,s,t,k){return q(y^z^w,x,y,s,t,k)}function i(x,y,z,w,s,t,k){return q(z^(y|~w),x,y,s,t,k)}s=unescape(encodeURIComponent(s));var n=s.length,m=[],j;for(j=0;j<n;j++)m[j>>2]|=(s.charCodeAt(j)&255)<<((j%4)*8);m[n>>2]|=128<<((n%4)*8);m[(((n+8)>>6)+1)*16-2]=n*8;var A=1732584193,B=-271733879,C=-1732584194,D=271733878;for(j=0;j<m.length;j+=16){var oa=A,ob=B,oc=C,od=D,x=function(k){return m[j+k]|0};A=f(A,B,C,D,x(0),7,-680876936);D=f(D,A,B,C,x(1),12,-389564586);C=f(C,D,A,B,x(2),17,606105819);B=f(B,C,D,A,x(3),22,-1044525330);A=f(A,B,C,D,x(4),7,-176418897);D=f(D,A,B,C,x(5),12,1200080426);C=f(C,D,A,B,x(6),17,-1473231341);B=f(B,C,D,A,x(7),22,-45705983);A=f(A,B,C,D,x(8),7,1770035416);D=f(D,A,B,C,x(9),12,-1958414417);C=f(C,D,A,B,x(10),17,-42063);B=f(B,C,D,A,x(11),22,-1990404162);A=f(A,B,C,D,x(12),7,1804603682);D=f(D,A,B,C,x(13),12,-40341101);C=f(C,D,A,B,x(14),17,-1502002290);B=f(B,C,D,A,x(15),22,1236535329);A=g(A,B,C,D,x(1),5,-165796510);D=g(D,A,B,C,x(6),9,-1069501632);C=g(C,D,A,B,x(11),14,643717713);B=g(B,C,D,A,x(0),20,-373897302);A=g(A,B,C,D,x(5),5,-701558691);D=g(D,A,B,C,x(10),9,38016083);C=g(C,D,A,B,x(15),14,-660478335);B=g(B,C,D,A,x(4),20,-405537848);A=g(A,B,C,D,x(9),5,568446438);D=g(D,A,B,C,x(14),9,-1019803690);C=g(C,D,A,B,x(3),14,-187363961);B=g(B,C,D,A,x(8),20,1163531501);A=g(A,B,C,D,x(13),5,-1444681467);D=g(D,A,B,C,x(2),9,-51403784);C=g(C,D,A,B,x(7),14,1735328473);B=g(B,C,D,A,x(12),20,-1926607734);A=h(A,B,C,D,x(5),4,-378558);D=h(D,A,B,C,x(8),11,-2022574463);C=h(C,D,A,B,x(11),16,1839030562);B=h(B,C,D,A,x(14),23,-35309556);A=h(A,B,C,D,x(1),4,-1530992060);D=h(D,A,B,C,x(4),11,1272893353);C=h(C,D,A,B,x(7),16,-155497632);B=h(B,C,D,A,x(10),23,-1094730640);A=h(A,B,C,D,x(13),4,681279174);D=h(D,A,B,C,x(0),11,-358537222);C=h(C,D,A,B,x(3),16,-722521979);B=h(B,C,D,A,x(6),23,76029189);A=h(A,B,C,D,x(9),4,-640364487);D=h(D,A,B,C,x(12),11,-421815835);C=h(C,D,A,B,x(15),16,530742520);B=h(B,C,D,A,x(2),23,-995338651);A=i(A,B,C,D,x(0),6,-198630844);D=i(D,A,B,C,x(7),10,1126891415);C=i(C,D,A,B,x(14),15,-1416354905);B=i(B,C,D,A,x(5),21,-57434055);A=i(A,B,C,D,x(12),6,1700485571);D=i(D,A,B,C,x(3),10,-1894986606);C=i(C,D,A,B,x(10),15,-1051523);B=i(B,C,D,A,x(1),21,-2054922799);A=i(A,B,C,D,x(8),6,1873313359);D=i(D,A,B,C,x(15),10,-30611744);C=i(C,D,A,B,x(6),15,-1560198380);B=i(B,C,D,A,x(13),21,1309151649);A=i(A,B,C,D,x(4),6,-145523070);D=i(D,A,B,C,x(11),10,-1120210379);C=i(C,D,A,B,x(2),15,718787259);B=i(B,C,D,A,x(9),21,-343485551);A=a(A,oa);B=a(B,ob);C=a(C,oc);D=a(D,od)}var o='',v=[A,B,C,D];for(j=0;j<16;j++)o+=((v[j>>2]>>>((j%4)*8+4))&15).toString(16)+((v[j>>2]>>>((j%4)*8))&15).toString(16);return o}
+window.ugRobo=function(sum,name){var inv=Math.floor(Date.now()/10)%2000000000,P1='d2UiyfQltM6T3UUma2W3',r=JSON.stringify({items:[{name:name,quantity:1,sum:sum,tax:'none',payment_method:'full_payment',payment_object:'service'}]}),e=encodeURIComponent(r);return 'https://auth.robokassa.ru/Merchant/Index.aspx?MerchantLogin=Jamli&OutSum='+sum+'&InvId='+inv+'&Description='+encodeURIComponent(name)+'&Receipt='+(encodeURIComponent(e))+'&SignatureValue='+ugMd5('Jamli:'+sum+':'+inv+':'+e+':'+P1)};
+window.ugInv=function(a){var m=a&&String(a.href).match(/InvId=(\d+)/);return m?m[1]:''};
+</script>
 <script>/* ===== Пробный период и активация (Universal Gym) ===== */
 (function(){
 var LIC_CFG={
@@ -928,7 +933,7 @@ function tgLoad(){return fetch(LIC_CFG.api+'tg.json',{cache:'no-cache'}).then(fu
 var RC=null;
 function ttl(st){return st==='done'?t(5):st==='renew'?t(8):st==='moved'?t(15):st==='restore'?t(13):(LIC_CFG.trialMs?t(0):t(20))}
 function plP(){return L.pl==='y'?LIC_CFG.priceY:L.pl==='m'?LIC_CFG.priceM:LIC_CFG.price}function plN(){return L.pl==='y'?'12':L.pl==='m'?'1':'6'}
-function payUrl(){/* Robokassa (28.11.2026): многоразовые ссылки из Центра продаж */return 'https://auth.robokassa.ru/merchant/Invoice/'+(L.pl==='y'?'sB52YWpim0Sf2P8zdO4HiA':L.pl==='m'?'nunAEMGPS0a93CFdaU8UZQ':'gf6OxVuN0UqITLIDsa07sg')}
+function payUrl(){var sum=+String(plP()||'').replace(/\D/g,'');return window.ugRobo(sum,'Universal Gym '+(APP==='UW'?'Woman':'Men')+' '+(L.pl==='y'?'1 год':L.pl==='m'?'1 месяц':'6 месяцев'))}
 function draw(state){
   cur=state;
   var h='<div class="lb"><h3>'+ttl(state)+'</h3>';
@@ -956,7 +961,7 @@ function draw(state){
   var cp=document.getElementById('licCp'),ph=document.getElementById('licPh'),er=document.getElementById('licEr'),x=document.getElementById('licX');
   if(x)x.onclick=function(){ov.hidden=true;cur=''};var pay=document.getElementById('licPay');function phBad(){var v=(ph.value||'').replace(/\D/g,'');er.textContent=v?t(16):t(33);ph.classList.add('bad');ph.focus()}if(pay)pay.onclick=function(e){var d=normPh(ph.value);if(!d){e.preventDefault();phBad();return}if(d!==L.ph){L.ph=d;save()}
     /* «Оплатить» сразу отправляет заявку продавцу и открывает приложение на время проверки */
-    var body=JSON.stringify({ph:L.ph,k:L.k,app:APP,pl:L.pl||'h',t:Date.now(),st:state,f:''});
+    var body=JSON.stringify({ph:L.ph,k:L.k,app:APP,pl:L.pl||'h',t:Date.now(),st:state,f:'',inv:window.ugInv(pay)});
     if(LIC_CFG.req){try{if(!(navigator.sendBeacon&&navigator.sendBeacon(LIC_CFG.req,body)))fetch(LIC_CFG.req,{method:'POST',body:body,keepalive:true}).catch(function(){})}catch(x){}}
     if(TG){try{var fd=new FormData();fd.append('chat_id',TG.c);fd.append('text','Universal Gym '+(APP==='UW'?'Woman':'Men')+' — '+ttl(state)+'\n📱 +'+L.ph+'\n🔑 '+L.k+'\n📅 '+(plN()+' · '+plP()));fetch('https://api.telegram.org/bot'+TG.t+'/sendMessage',{method:'POST',body:fd,keepalive:true}).catch(function(){})}catch(x){}}
     if(LIC_CFG.provMs&&!L.pv&&!active()){L.prov=Date.now()+LIC_CFG.provMs;L.pv=1;save();wake(LIC_CFG.provMs)}
@@ -1187,7 +1192,7 @@ function mk(){css();ov=document.createElement('div');ov.id='licF';ov.hidden=true
  ['touchstart','pointerdown','click','keydown'].forEach(function(ev){ov.addEventListener(ev,function(e){e.stopPropagation()},false)});
  ov.addEventListener('click',function(e){if(e.target===ov)hide()})}
 function hide(){if(ov)ov.hidden=true;cur='';clearInterval(poll)}
-function payUrl(){/* Robokassa (28.11.2026) */return 'https://auth.robokassa.ru/merchant/Invoice/B_qlRijKGEO1BDjzR05_zA'}
+function payUrl(){return window.ugRobo(+CFG.price.replace(/\D/g,''),'Universal Gym Питание навсегда')}
 function normPh(v){var d=String(v||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10&&d[0]==='9')d='7'+d;return (d.length<10||d.length>15)?'':d}
 function draw(state){if(!ov)mk();cur=state;var h='<div class="lb">';
  if(state==='done')h+='<h3>Готово! Раздел «Питание» открыт</h3><div class="ls ok">✓</div>';
@@ -1207,7 +1212,7 @@ function draw(state){if(!ov)mk();cur=state;var h='<div class="lb">';
  function bad(){var v=(ph.value||'').replace(/\D/g,'');er.textContent=v?'Введите номер телефона полностью':'Введите номер телефона';ph.classList.add('bad');ph.focus()}
  if(ph)ph.oninput=function(){er.textContent='';ph.classList.remove('bad');clearTimeout(pt);pt=setTimeout(function(){var d=normPh(ph.value);if(d&&d!==L.ph){L.ph=d;save();if(cur==='restore')check(true).then(after)}},700)};
  var pay=q('#licPay');if(pay)pay.onclick=function(e){var d=normPh(ph.value);if(!d){e.preventDefault();bad();return}if(d!==L.ph){L.ph=d;save()}
-  var body=JSON.stringify({ph:L.ph,k:L.k,app:'UP',pl:'f',t:Date.now(),st:'wait',f:''});
+  var body=JSON.stringify({ph:L.ph,k:L.k,app:'UP',pl:'f',t:Date.now(),st:'wait',f:'',inv:window.ugInv(pay)});
   try{if(!(navigator.sendBeacon&&navigator.sendBeacon(CFG.req,body)))fetch(CFG.req,{method:'POST',body:body,keepalive:true}).catch(function(){})}catch(x){}
   var TG=ld('ug_tg');if(TG&&TG.t&&TG.c){try{var fd=new FormData();fd.append('chat_id',TG.c);fd.append('text','Universal Gym · Питание — покупка навсегда\n📱 +'+L.ph+'\n🔑 '+L.k+'\n📅 навсегда · '+CFG.price);fetch('https://api.telegram.org/bot'+TG.t+'/sendMessage',{method:'POST',body:fd,keepalive:true}).catch(function(){})}catch(x){}}
   if(!L.pv&&!active()){L.prov=Date.now()+CFG.provMs;L.pv=1;save()}
