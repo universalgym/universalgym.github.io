@@ -719,7 +719,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261128021000';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261128021500';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});setInterval(function(){if(document.hidden)return;var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;chk()},30000);/* проверка обновления каждые 30 сек (не во время тренировки и не пока человек что-то вписывает) */
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -856,7 +856,7 @@ var LIC_CFG={
   yearMs: 183*24*60*60*1000,   // срок доступа после активации: полгода
   ig: '',                      // имя Instagram без @ — пусто: кнопка не показывается
   pay: {qr:''},   // оплата через Robokassa (ссылки в payUrl)
-  provMs: 10*60*60*1000,       // после отправки заявки приложение открывается на 10 часов, пока продавец не проверит оплату
+  provMs: 0,                   // временного доступа нет (28.11.2026): пробный 3 дня, потом только оплата
   req: 'https://ntfy.sh/ugq-af43161359a999ea',   // сюда уходят заявки — их видно в «Ключи» → «Ждут проверки»
   list: 'https://chamsutdinov-bot.github.io/klyuchi/list/',   // список активированных ключей в репозитории Klyuchi
   api: 'https://api.github.com/repos/chamsutdinov-bot/klyuchi/contents/list/'
@@ -1014,7 +1014,7 @@ var timer=null,lastBlk=0,tw=null;
 function modeApp(){return document.body.getAttribute('data-gg')==='w'?'UW':'UG'}
 function syncMode(){var a=modeApp();if(a===APP)return;APP=a;L=a==='UW'?LW:LG;stop();lastBlk=0;if(!ov.hidden&&cur!=='done'){ov.hidden=true;cur=''}check()}
 try{new MutationObserver(syncMode).observe(document.body,{attributes:true,attributeFilter:['data-gg']})}catch(e){}
-function active(){if(L.sup)return false;if(L.prov&&!L.blk&&Date.now()<L.prov&&!L.until)return true;return L.until?Date.now()<L.until:!!L.ok}
+function active(){if(L.sup)return false;return L.until?Date.now()<L.until:!!L.ok}
 function trialOver(){return Date.now()-L.t0>=LIC_CFG.trialMs}
 function wake(ms){if(tw)clearTimeout(tw);tw=setTimeout(function(){tw=null;check()},Math.max(500,Math.min(ms+500,2147483000)))}
 function poll(){
