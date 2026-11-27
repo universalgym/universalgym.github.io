@@ -719,7 +719,7 @@ if(g0){GSEL=g0;try{localStorage.setItem('gym_g',g0)}catch(e){}apply(g0)}else{ren
 input,select,textarea{font-size:16px!important}
 html{-webkit-text-size-adjust:100%;touch-action:manipulation}
 </style>
-<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261125014500';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
+<script>/* обновление: если новая версия не подтянулась (сеть/кэш), пробуем снова через 20 сек, до 6 раз */function ugTry(b){var k='gym_try',o=null;try{o=JSON.parse(sessionStorage.getItem(k)||'null')}catch(e){}if(!o||o.b!==b)o={b:b,n:0,t:0};if(o.n>=6||Date.now()-o.t<20000)return false;o.n++;o.t=Date.now();try{sessionStorage.setItem(k,JSON.stringify(o))}catch(e){}return true}var BUILD='20261128001000';(function(){var last=0;function chk(){var n=Date.now();if(n-last<30000)return;last=n;if(S&&S.cur&&S.cur.t0)return;try{fetch('version.json?t='+n,{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.b||j.b==BUILD)return;if(!ugTry(j.b))return;(function(u){if(window.ugSplashOn&&window.ugSplashOn()){window.addEventListener('ugsplashdone',function(){location.replace(u)},{once:true})}else location.replace(u)})(location.pathname+'?v='+j.b+'&r='+n)}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});setInterval(function(){if(document.hidden)return;var a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;chk()},30000);/* проверка обновления каждые 30 сек (не во время тренировки и не пока человек что-то вписывает) */
 /* при запуске: сначала проверяем версию и только потом показываем экран — без мелькания старой версии */
 var de=document.documentElement,shown=false;function show(){if(shown)return;shown=true;de.style.visibility=''}
@@ -928,8 +928,7 @@ function tgLoad(){return fetch(LIC_CFG.api+'tg.json',{cache:'no-cache'}).then(fu
 var RC=null;
 function ttl(st){return st==='done'?t(5):st==='renew'?t(8):st==='moved'?t(15):st==='restore'?t(13):(LIC_CFG.trialMs?t(0):t(20))}
 function plP(){return L.pl==='y'?LIC_CFG.priceY:L.pl==='m'?LIC_CFG.priceM:LIC_CFG.price}function plN(){return L.pl==='y'?'12':L.pl==='m'?'1':'6'}
-function payUrl(){var P=LIC_CFG.pay,sum=String((plP())||'').replace(/\D/g,'');
-  return 'https://yoomoney.ru/quickpay/confirm?receiver='+P.ym+'&quickpay-form=button&paymentType=AC&sum='+sum+'&label='+encodeURIComponent(L.k)+'&targets='+encodeURIComponent('Universal Gym '+(APP==='UW'?'Woman':'Men')+' '+L.k)+'&successURL='+encodeURIComponent(location.origin+location.pathname)}
+function payUrl(){/* Robokassa (28.11.2026): многоразовые ссылки из Центра продаж */return 'https://auth.robokassa.ru/merchant/Invoice/'+(L.pl==='y'?'sB52YWpim0Sf2P8zdO4HiA':L.pl==='m'?'nunAEMGPS0a93CFdaU8UZQ':'gf6OxVuN0UqITLIDsa07sg')}
 function draw(state){
   cur=state;
   var h='<div class="lb"><h3>'+ttl(state)+'</h3>';
@@ -1188,7 +1187,7 @@ function mk(){css();ov=document.createElement('div');ov.id='licF';ov.hidden=true
  ['touchstart','pointerdown','click','keydown'].forEach(function(ev){ov.addEventListener(ev,function(e){e.stopPropagation()},false)});
  ov.addEventListener('click',function(e){if(e.target===ov)hide()})}
 function hide(){if(ov)ov.hidden=true;cur='';clearInterval(poll)}
-function payUrl(){return 'https://yoomoney.ru/quickpay/confirm?receiver='+CFG.ym+'&quickpay-form=button&paymentType=AC&sum='+CFG.price.replace(/\D/g,'')+'&label='+encodeURIComponent(L.k)+'&targets='+encodeURIComponent('Universal Gym Питание '+L.k)+'&successURL='+encodeURIComponent(location.origin+location.pathname)}
+function payUrl(){/* Robokassa (28.11.2026) */return 'https://auth.robokassa.ru/merchant/Invoice/B_qlRijKGEO1BDjzR05_zA'}
 function normPh(v){var d=String(v||'').replace(/\D/g,'');if(d.length===11&&d[0]==='8')d='7'+d.slice(1);if(d.length===10&&d[0]==='9')d='7'+d;return (d.length<10||d.length>15)?'':d}
 function draw(state){if(!ov)mk();cur=state;var h='<div class="lb">';
  if(state==='done')h+='<h3>Готово! Раздел «Питание» открыт</h3><div class="ls ok">✓</div>';
